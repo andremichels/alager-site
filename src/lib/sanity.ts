@@ -17,13 +17,14 @@ export const sanityClient = createClient({
 });
 
 // ═══════════════════════════════════════════════
-// Typed fetch functions (cached with React cache)
+// Types
 // ═══════════════════════════════════════════════
 
 export interface Post {
   _id: string;
   title: Record<string, string>;
   excerpt: Record<string, string>;
+  body?: Record<string, string>;
   cat: Record<string, string>;
   slug?: { current: string };
   date: string;
@@ -49,11 +50,9 @@ export interface TimelineEntry {
   body: Record<string, string>;
 }
 
-export interface InstitutionalText {
-  _id: string;
-  section: string;
-  content: Record<string, string>;
-}
+// ═══════════════════════════════════════════════
+// Fetch functions (cached with React cache)
+// ═══════════════════════════════════════════════
 
 export const getPosts = cache(async (): Promise<Post[]> => {
   return sanityClient.fetch(`*[_type == "post"] | order(date desc) {
@@ -61,7 +60,7 @@ export const getPosts = cache(async (): Promise<Post[]> => {
     title,
     excerpt,
     cat,
-    "slug": slug.current,
+    "slug": slug { current },
     date,
     read,
     featured,
@@ -70,23 +69,35 @@ export const getPosts = cache(async (): Promise<Post[]> => {
   }`);
 });
 
+export const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
+  return sanityClient.fetch(
+    `*[_type == "post" && slug.current == $slug][0] {
+      _id,
+      title,
+      excerpt,
+      body,
+      cat,
+      "slug": slug { current },
+      date,
+      read,
+      featured,
+      membersOnly,
+      "imageUrl": mainImage.asset->url
+    }`,
+    { slug }
+  );
+});
+
 export const getBoardMembers = cache(async (): Promise<BoardMember[]> => {
   return sanityClient.fetch(`*[_type == "boardMember"] | order(order asc) {
-    _id,
-    name,
-    role,
-    country,
-    order,
+    _id, name, role, country, order,
     "imageUrl": photo.asset->url
   }`);
 });
 
 export const getTimelineEntries = cache(async (): Promise<TimelineEntry[]> => {
   return sanityClient.fetch(`*[_type == "timelineEntry"] | order(year asc) {
-    _id,
-    year,
-    title,
-    body
+    _id, year, title, body
   }`);
 });
 
