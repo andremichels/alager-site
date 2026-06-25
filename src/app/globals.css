@@ -1,26 +1,277 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ═══════════════════════════════════════════════
+   ALAGER — Design System
+   Tokens extraídos do handoff Claude Design
+   ═══════════════════════════════════════════════ */
 
+/* ── Color tokens ── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-green: #0a3d2e;
+  --color-green-deep: #07301f;
+  --color-green-ink: #0d1410;
+  --color-sage: #d4e3c4;
+  --color-sage-soft: #e6efdb;
+  --color-cream: #f5f2ea;
+  --color-cream-deep: #ece7d8;
+  --color-gold: #c8a85a;
+  --color-gold-deep: #a98a3f;
+  --color-ink: #0d1410;
+  --color-ink-2: #2a3331;
+  --color-muted: #6b746f;
+  --color-line: #1f3b2f1a;
+  --color-line-strong: #0a3d2e33;
+
+  /* Font families */
+  --font-serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Spacing scale */
+  --spacing-section: 96px;
+  --spacing-section-tight: 64px;
+  --spacing-wrap: 1320px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ── Base ── */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography utility classes ── */
+.serif {
+  font-family: var(--font-serif);
+}
+
+.display-1 {
+  font-family: var(--font-serif);
+  font-size: clamp(56px, 7.4vw, 124px);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+}
+
+.display-2 {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 4.4vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 3.4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.018em;
+  font-weight: 400;
+}
+
+.h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 2.2vw, 36px);
+  line-height: 1.15;
+  letter-spacing: -0.014em;
+  font-weight: 400;
+}
+
+.h3 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+
+.lead {
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-ink-2);
+}
+
+.small {
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ── Kicker ── */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.kicker::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-gold);
+  margin-right: 12px;
+  vertical-align: middle;
+}
+
+/* ── Layout utilities ── */
+.wrap {
+  max-width: var(--spacing-wrap);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.section {
+  padding-top: var(--spacing-section);
+  padding-bottom: var(--spacing-section);
+}
+
+.section-tight {
+  padding-top: var(--spacing-section-tight);
+  padding-bottom: var(--spacing-section-tight);
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--color-green);
+  color: var(--color-cream);
+}
+.btn-primary:hover {
+  background: var(--color-green-deep);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-green);
+  border: 1px solid var(--color-line-strong);
+}
+.btn-outline:hover {
+  background: var(--color-sage-soft);
+}
+
+.btn-gold {
+  background: var(--color-gold);
+  color: var(--color-green-deep);
+  font-weight: 600;
+}
+.btn-gold:hover {
+  background: var(--color-gold-deep);
+}
+
+/* ── Divider ── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-line);
+}
+
+/* ── Photo placeholder ── */
+.ph {
+  background: var(--color-cream-deep);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    var(--color-line) 8px,
+    var(--color-line) 9px
+  );
+}
+.ph span {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  text-align: center;
+  padding: 12px;
+}
+
+/* ── Eyebrow row (kicker + title + body in one row) ── */
+.eyebrow-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ── Reveal animation (framer-motion will handle this, but CSS fallback) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-2 { transition-delay: 0.08s; }
+.reveal-3 { transition-delay: 0.16s; }
+.reveal-4 { transition-delay: 0.24s; }
+
+/* ── Light flex/grid helpers ── */
+.flex { display: flex; }
+.flex.between { justify-content: space-between; }
+.flex.center { align-items: center; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-24 { gap: 24px; }
+.gap-32 { gap: 32px; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .wrap {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .section {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .eyebrow-row {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,0 +1,85 @@
+{
+  "nav": { "home": "Inicio", "about": "Quiénes Somos", "energy": "Energías Renovables", "blog": "Blog", "join": "Asóciate", "cta": "Hacerse asociado" },
+  "top": { "tagline": "Asociación Latinoamericana de Energía Renovable", "since": "Fundada en 2018 · Sede en São Paulo, Brasil" },
+  "home": {
+    "kicker": "Manifiesto · 2026",
+    "headline": "Una agenda común para la energía que mueve a América Latina.",
+    "lead": "ALAGER reúne a asociaciones, generadoras e instituciones desde Argentina hasta México para articular políticas públicas, defender la inversión en renovables y representar al sector donde se toman las decisiones.",
+    "ctaPrimary": "Hacerse asociado", "ctaSecondary": "Leer el manifiesto",
+    "mapTitle": "Dónde estamos", "mapKicker": "Mapa · Países miembros",
+    "mapBody": "Trece países, más de 240 asociados y una capacidad combinada de 38 GW en operación. Haz clic en un país para ver la representación local.",
+    "mapLegendMember": "Países con asociados", "mapLegendObs": "Observadores",
+    "pillarsKicker": "Cuatro pilares",
+    "pillars": [
+      { "n": "01", "t": "Políticas públicas", "b": "Seguimiento legislativo, aportes técnicos a consultas regulatorias y diálogo permanente con órganos del sector energético." },
+      { "n": "02", "t": "Articulación regional", "b": "Coordinación entre asociaciones nacionales para posiciones conjuntas en foros internacionales y tratados de integración energética." },
+      { "n": "03", "t": "Inteligencia sectorial", "b": "Estudios técnicos, boletines regulatorios y datos de mercado distribuidos exclusivamente a los asociados." },
+      { "n": "04", "t": "Defensa de la inversión", "b": "Representación institucional ante gobiernos, multilaterales y financiadores para preservar la previsibilidad regulatoria." }
+    ],
+    "voiceKicker": "Desde la presidencia",
+    "voiceQuote": "\u201cLa transición energética latinoamericana no se resolverá país por país. ALAGER existe para que el sector hable con una sola voz cuando sea necesario.\u201d",
+    "voiceName": "Marcelo Renault", "voiceRole": "Presidente",
+    "newsKicker": "Agenda pública", "newsTitle": "Lo que estamos siguiendo", "newsAll": "Ver todas las posiciones →",
+    "joinKicker": "Próximo paso", "joinTitle": "Sé parte de la red que decide el futuro de la energía en la región.",
+    "joinBody": "Los asociados acceden a la inteligencia de mercado, a los grupos técnicos y a la representación directa de ALAGER en foros regionales y multilaterales."
+  },
+  "about": {
+    "kicker": "Quiénes Somos",
+    "headline": "Una asociación sin fines de lucro al servicio de la transición energética de América Latina.",
+    "lead": "Fundada en 2018 por asociaciones nacionales de generación renovable, ALAGER opera como entidad de representación regional. No recibe recursos públicos, se sostiene con sus asociados y aplica prácticas de gobernanza auditadas anualmente.",
+    "missionKicker": "Misión",
+    "mission": "Integrar, coordinar y defender los intereses de las instituciones y empresas latinoamericanas comprometidas con el desarrollo de las energías renovables.",
+    "visionKicker": "Visión",
+    "vision": "Una América Latina donde la energía renovable sea la columna vertebral de la matriz, regulada con previsibilidad y financiada con instrumentos de largo plazo.",
+    "valuesKicker": "Principios",
+    "values": [
+      { "t": "Independencia", "b": "Posiciones construidas técnicamente, sin alineamiento partidario o comercial individual." },
+      { "t": "Pluralidad", "b": "Representación de todas las fuentes renovables — solar, eólica, biomasa, hídrica, geotérmica, hidrógeno." },
+      { "t": "Transparencia", "b": "Estados financieros, actas y posicionamientos públicos disponibles a los asociados." },
+      { "t": "Continuidad", "b": "Diálogo institucional que sobrevive a los ciclos políticos y mantiene al sector articulado." }
+    ],
+    "timelineKicker": "Línea de tiempo", "timelineTitle": "Ocho años articulando el sector renovable de la región.",
+    "teamKicker": "Directiva", "teamTitle": "Quién conduce",
+    "governanceKicker": "Gobernanza", "governanceTitle": "Cómo decidimos",
+    "governanceBody": "ALAGER cuenta con Asamblea General anual, Consejo Deliberativo paritario entre países y Directiva Ejecutiva electa por mandato de dos años. Las posiciones oficiales se deliberan por consenso, con publicación de votos disidentes."
+  },
+  "energy": {
+    "kicker": "Energías Renovables", "headline": "Cinco fuentes, una transición.",
+    "lead": "Cada fuente renovable tiene un rol específico en la matriz latinoamericana: perfiles de generación, costos de capital, exigencias regulatorias y cuellos de botella propios. Las seguimos todas en frentes técnicos dedicados.",
+    "calcKicker": "Simulador", "calcTitle": "Calcula el impacto evitado de un proyecto renovable",
+    "calcLead": "Usa el simulador a continuación para estimar emisiones evitadas, equivalencia en hogares abastecidos y árboles plantados. Cálculo simplificado, solo indicativo.",
+    "capacityLabel": "Capacidad del proyecto", "sourceLabel": "Fuente", "countryLabel": "País",
+    "avoidedCo2": "Emisiones evitadas / año", "households": "Hogares abastecidos",
+    "trees": "Equivalente en árboles", "annualEnergy": "Generación estimada / año"
+  },
+  "blog": {
+    "kicker": "Blog · Análisis y posiciones", "headline": "Inteligencia regulatoria y lectura institucional del sector.",
+    "lead": "Análisis de regulación, posiciones oficiales, boletines sectoriales y cobertura de eventos. Contenido abierto y — para asociados — informes técnicos de profundidad.",
+    "all": "Todo", "categories": ["Regulación", "Mercado", "Eventos", "Posiciones", "Inteligencia"],
+    "search": "Buscar artículos…", "empty": "Ningún artículo coincide con estos filtros.",
+    "readMore": "Leer análisis", "minRead": "min de lectura", "members": "Contenido exclusivo de asociados"
+  },
+  "join": {
+    "kicker": "Asóciate",
+    "headline": "Ser asociado de ALAGER es formar parte de las decisiones que moldean la transición energética de América Latina.",
+    "lead": "Tres categorías de asociación, todas con voz en los grupos técnicos. La categoría define el paquete de inteligencia, los asientos en foros y el nivel de representación institucional.",
+    "tiersTitle": "Categorías de asociación",
+    "formKicker": "Manifestación de interés", "formTitle": "Habla con la secretaría ejecutiva",
+    "formLead": "Completa el formulario a continuación y nuestro equipo se pondrá en contacto en hasta cinco días hábiles con la documentación necesaria para tu categoría.",
+    "fName": "Nombre completo", "fOrg": "Organización", "fEmail": "Correo institucional",
+    "fCountry": "País", "fTier": "Categoría pretendida", "fSource": "Fuente de energía (si aplica)",
+    "fMessage": "¿Cómo pretendes contribuir con ALAGER?", "fSubmit": "Enviar manifestación",
+    "fOk": "Recibimos tu manifestación. La secretaría ejecutiva responderá en hasta 5 días hábiles."
+  },
+  "footer": {
+    "tagline": "Articulando la transición energética latinoamericana desde 2018.",
+    "colNav": "Navegación", "colAbout": "Institucional", "colMembers": "Asociados", "colFollow": "Síguenos",
+    "addr": "Av. Paulista, 1.º piso · São Paulo · Brasil",
+    "addrLine": "secretaria@alager.org.br · +55 11 0000 0000",
+    "newsletter": "Boletín regulatorio",
+    "newsletterDesc": "Análisis mensual, posicionamientos y calendario regulatorio. Sin ruido.",
+    "newsletterPh": "Tu correo institucional", "newsletterCta": "Suscribirse",
+    "privacy": "Política de privacidad", "transparency": "Transparencia",
+    "copy": "© 2026 ALAGER · Todos los derechos reservados"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "nav": { "home": "Home", "about": "About", "energy": "Renewables", "blog": "Blog", "join": "Join", "cta": "Become a member" },
+  "top": { "tagline": "Latin American Renewable Energy Association", "since": "Founded in 2018 · Headquartered in São Paulo, Brazil" },
+  "home": {
+    "kicker": "Manifesto · 2026",
+    "headline": "A shared agenda for the energy that moves Latin America.",
+    "lead": "ALAGER brings together associations, generators and institutions from Argentina to Mexico to coordinate public policy, defend investment in renewables and represent the sector where the decisions are actually made.",
+    "ctaPrimary": "Become a member", "ctaSecondary": "Read the manifesto",
+    "mapTitle": "Where we operate", "mapKicker": "Map · Member countries",
+    "mapBody": "Thirteen countries, more than 240 members and a combined operating capacity of 38 GW. Click a country to see the local representation.",
+    "mapLegendMember": "Countries with members", "mapLegendObs": "Observers",
+    "pillarsKicker": "Four pillars",
+    "pillars": [
+      { "n": "01", "t": "Public policy", "b": "Legislative monitoring, technical contributions to regulatory consultations, and permanent dialogue with energy-sector authorities." },
+      { "n": "02", "t": "Regional coordination", "b": "Alignment among national associations for joint positions in international fora and energy-integration treaties." },
+      { "n": "03", "t": "Sector intelligence", "b": "Technical studies, regulatory briefings and market data distributed exclusively to members." },
+      { "n": "04", "t": "Defense of investment", "b": "Institutional representation before governments, multilaterals and financiers to preserve regulatory predictability." }
+    ],
+    "voiceKicker": "From the chair",
+    "voiceQuote": "\u201cLatin America's energy transition will not be solved country by country. ALAGER exists so the sector can speak with one voice when it has to.\u201d",
+    "voiceName": "Marcelo Renault", "voiceRole": "President",
+    "newsKicker": "Public agenda", "newsTitle": "What we're tracking", "newsAll": "All positions →",
+    "joinKicker": "Next step", "joinTitle": "Join the network that's shaping the region's energy future.",
+    "joinBody": "Members get access to market intelligence, technical working groups, and ALAGER's direct representation in regional and multilateral fora."
+  },
+  "about": {
+    "kicker": "About",
+    "headline": "A non-profit association in service of Latin America's energy transition.",
+    "lead": "Founded in 2018 by national renewable-generation associations, ALAGER operates as a regional representation body. It receives no public funds, is sustained by its members, and follows governance practices audited annually.",
+    "missionKicker": "Mission",
+    "mission": "Integrate, coordinate and defend the interests of Latin American institutions and companies committed to the development of renewable energy.",
+    "visionKicker": "Vision",
+    "vision": "A Latin America where renewables form the backbone of the energy mix, regulated with predictability and financed with long-term instruments.",
+    "valuesKicker": "Principles",
+    "values": [
+      { "t": "Independence", "b": "Positions built on technical grounds — no party-political or individual commercial alignment." },
+      { "t": "Plurality", "b": "Representation of every renewable source — solar, wind, biomass, hydro, geothermal, hydrogen." },
+      { "t": "Transparency", "b": "Financial statements, minutes and public positions available to members." },
+      { "t": "Continuity", "b": "Institutional dialogue that outlasts political cycles and keeps the sector aligned." }
+    ],
+    "timelineKicker": "Timeline", "timelineTitle": "Eight years coordinating the region's renewable sector.",
+    "teamKicker": "Leadership", "teamTitle": "Who runs it",
+    "governanceKicker": "Governance", "governanceTitle": "How decisions are made",
+    "governanceBody": "ALAGER has an annual General Assembly, a Deliberative Council with parity across countries, and an Executive Board elected for two-year terms. Official positions are decided by consensus, with dissenting votes published."
+  },
+  "energy": {
+    "kicker": "Renewables", "headline": "Five sources, one transition.",
+    "lead": "Each renewable source plays a specific role in the Latin American mix — generation profiles, capital costs, regulatory demands and bottlenecks of its own. We follow all of them through dedicated technical workstreams.",
+    "calcKicker": "Simulator", "calcTitle": "Estimate the avoided impact of a renewable project",
+    "calcLead": "Use the simulator below to estimate avoided emissions, equivalent households served and trees planted. Simplified, indicative calculation only.",
+    "capacityLabel": "Project capacity", "sourceLabel": "Source", "countryLabel": "Country",
+    "avoidedCo2": "Avoided emissions / year", "households": "Households served",
+    "trees": "Tree equivalent", "annualEnergy": "Estimated generation / year"
+  },
+  "blog": {
+    "kicker": "Blog · Analysis & positions", "headline": "Regulatory intelligence and institutional reading of the sector.",
+    "lead": "Regulatory analysis, official positions, sector briefings and event coverage. Open content — and, for members, in-depth technical reports.",
+    "all": "All", "categories": ["Regulation", "Market", "Events", "Positions", "Intelligence"],
+    "search": "Search articles…", "empty": "No articles match these filters.",
+    "readMore": "Read analysis", "minRead": "min read", "members": "Members-only content"
+  },
+  "join": {
+    "kicker": "Join",
+    "headline": "Being an ALAGER member means taking part in the decisions that shape Latin America's energy transition.",
+    "lead": "Three membership tiers, all with a voice in the technical working groups. The tier defines the intelligence package, the number of seats in fora and the level of institutional representation.",
+    "tiersTitle": "Membership tiers",
+    "formKicker": "Expression of interest", "formTitle": "Talk to the executive secretariat",
+    "formLead": "Fill in the form below and our team will be in touch within five business days with the documentation needed for your tier.",
+    "fName": "Full name", "fOrg": "Organisation", "fEmail": "Institutional e-mail",
+    "fCountry": "Country", "fTier": "Intended tier", "fSource": "Energy source (if applicable)",
+    "fMessage": "How do you intend to contribute to ALAGER?", "fSubmit": "Submit",
+    "fOk": "We received your submission. The executive secretariat will reply within 5 business days."
+  },
+  "footer": {
+    "tagline": "Coordinating Latin America's energy transition since 2018.",
+    "colNav": "Navigation", "colAbout": "Institutional", "colMembers": "Members", "colFollow": "Follow",
+    "addr": "Av. Paulista, 1st floor · São Paulo · Brazil",
+    "addrLine": "secretaria@alager.org.br · +55 11 0000 0000",
+    "newsletter": "Regulatory briefing",
+    "newsletterDesc": "Monthly analysis, position papers and regulatory calendar. No noise.",
+    "newsletterPh": "Your institutional e-mail", "newsletterCta": "Subscribe",
+    "privacy": "Privacy policy", "transparency": "Transparency",
+    "copy": "© 2026 ALAGER · All rights reserved"
+  }
+}
