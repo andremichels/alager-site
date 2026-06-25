@@ -1,5 +1,5 @@
-// Organism: Footer — 4 columns: logo+address, navigation, institutional, newsletter
-// Dark green background
+// Alager Site — Footer responsive (4 columns → 2 → 1)
+// Grid collapses: 4 cols desktop → 2 tablet → 1 mobile
 
 import { useTranslations } from "next-intl";
 import { LogoMark } from "@/components/atoms/LogoMark";
@@ -27,125 +27,57 @@ export function Footer({ locale }: FooterProps) {
     { label: t("transparency"), href: "#" },
   ];
 
-  const baseTextStyle: React.CSSProperties = {
-    fontFamily: "var(--font-sans)",
-    fontSize: 14,
-    color: "#b5c7b5",
-    lineHeight: 1.7,
-  };
-
   const linkStyle: React.CSSProperties = {
-    ...baseTextStyle,
-    textDecoration: "none",
-    display: "block",
-    marginBottom: 6,
+    fontFamily: "var(--font-sans)", fontSize: 14, color: "#b5c7b5",
+    lineHeight: 1.7, textDecoration: "none", display: "block", marginBottom: 6,
   };
 
   return (
-    <footer
-      style={{
-        background: "var(--color-green-deep)",
-        padding: "80px 0 48px",
-        color: "var(--color-cream)",
-        marginTop: "auto",
-      }}
-    >
+    <footer style={{
+      background: "var(--color-green-deep)",
+      padding: "80px 0 48px",
+      color: "var(--color-cream)",
+      marginTop: "auto",
+    }}>
       <div className="wrap">
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.5fr 1fr 1fr 1.5fr",
-            gap: 48,
-          }}
-        >
-          {/* Col 1: Logo + address */}
+        <div className="grid-4" style={{ gap: 48 }}>
+          {/* Col 1 */}
           <div>
-            <a
-              href={`/${locale}`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                textDecoration: "none",
-                marginBottom: 24,
-              }}
-            >
+            <a href={`/${locale}`} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", marginBottom: 24 }}>
               <LogoMark size={32} accent="var(--color-gold)" />
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 14,
-                  letterSpacing: "0.12em",
-                  color: "var(--color-cream)",
-                  fontWeight: 600,
-                }}
-              >
-                ALAGER
-              </span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 14, letterSpacing: "0.12em", color: "var(--color-cream)", fontWeight: 600 }}>ALAGER</span>
             </a>
-            <p style={baseTextStyle}>{t("tagline")}</p>
+            <p style={linkStyle}>{t("tagline")}</p>
             <div style={{ marginTop: 24 }}>
-              <MonoLabel color="var(--color-gold)">
-                {locale === "pt" ? "Sede" : locale === "es" ? "Sede" : "Headquarters"}
-              </MonoLabel>
-              <p style={{ ...baseTextStyle, marginTop: 8 }}>{t("addr")}</p>
-              <p style={{ ...baseTextStyle, marginTop: 4 }}>{t("addrLine")}</p>
+              <MonoLabel color="var(--color-gold)">{locale === "pt" ? "Sede" : "Headquarters"}</MonoLabel>
+              <p style={{ ...linkStyle, marginTop: 8 }}>{t("addr")}</p>
+              <p style={{ ...linkStyle, marginTop: 4 }}>{t("addrLine")}</p>
             </div>
           </div>
-
-          {/* Col 2: Navigation */}
+          {/* Col 2 */}
           <div>
             <MonoLabel color="var(--color-gold)">{t("colNav")}</MonoLabel>
             <div style={{ marginTop: 16 }}>
-              {navCol.map((link) => (
-                <a key={link.href} href={link.href} style={linkStyle}>
-                  {link.label}
-                </a>
-              ))}
+              {navCol.map((link) => <a key={link.href} href={link.href} style={linkStyle}>{link.label}</a>)}
             </div>
           </div>
-
-          {/* Col 3: Institutional */}
+          {/* Col 3 */}
           <div>
             <MonoLabel color="var(--color-gold)">{t("colAbout")}</MonoLabel>
             <div style={{ marginTop: 16 }}>
-              {instCol.map((link) => (
-                <a key={link.label} href={link.href} style={linkStyle}>
-                  {link.label}
-                </a>
-              ))}
+              {instCol.map((link) => <a key={link.label} href={link.href} style={linkStyle}>{link.label}</a>)}
             </div>
           </div>
-
-          {/* Col 4: Newsletter */}
+          {/* Col 4 */}
           <div>
             <MonoLabel color="var(--color-gold)">{t("newsletter")}</MonoLabel>
-            <p style={{ ...baseTextStyle, marginTop: 12, marginBottom: 16 }}>
-              {t("newsletterDesc")}
-            </p>
-            <NewsletterForm
-              placeholder={t("newsletterPh")}
-              ctaLabel={t("newsletterCta")}
-            />
+            <p style={{ ...linkStyle, marginTop: 12, marginBottom: 16 }}>{t("newsletterDesc")}</p>
+            <NewsletterForm placeholder={t("newsletterPh")} ctaLabel={t("newsletterCta")} />
           </div>
         </div>
-
-        {/* Bottom bar */}
-        <div
-          style={{
-            marginTop: 64,
-            paddingTop: 24,
-            borderTop: "1px solid #ffffff20",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
+        <div className="mobile-stack" style={{ marginTop: 64, paddingTop: 24, borderTop: "1px solid #ffffff20", display: "flex", justifyContent: "space-between" }}>
           <MonoLabel>{t("copy")}</MonoLabel>
-          <div style={{ display: "flex", gap: 24 }}>
-            <a href="#" style={{ color: "var(--color-muted)", textDecoration: "none" }}>
-              <MonoLabel>{t("privacy")}</MonoLabel>
-            </a>
-          </div>
+          <a href="#" style={{ color: "var(--color-muted)", textDecoration: "none" }}><MonoLabel>{t("privacy")}</MonoLabel></a>
         </div>
       </div>
     </footer>

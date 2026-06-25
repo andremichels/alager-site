@@ -119,7 +119,7 @@ export default function AssocieSePage() {
           <Display variant="h1" style={{ marginBottom: 48 }}>
             {t("tiersTitle")}
           </Display>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
+          <div className="grid-3" style={{ gap: 32 }}>
             {tiers.map((tier) => (
               <TierCard
                 key={tier.name}
@@ -175,7 +175,7 @@ export default function AssocieSePage() {
                 required
               />
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <div className="grid-2" style={{ gap: 16 }}>
                 <Input
                   name="country"
                   type="select"

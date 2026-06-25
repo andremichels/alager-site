@@ -60,7 +60,7 @@ export function HomeClient({ locale, posts }: HomeClientProps) {
                 {t("ctaSecondary")}
               </Button>
             </div>
-            <div style={{ marginTop: 72, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, paddingTop: 32, borderTop: "1px solid var(--color-line)" }}>
+            <div className="grid-3" style={{ marginTop: 72, gap: 24, paddingTop: 32, borderTop: "1px solid var(--color-line)" }}>
               <StatCounter value={countryTotal} label="Países representados" />
               <StatCounter value={memberTotal} label="Associados ativos" />
               <StatCounter value={Math.round(capacityTotal)} suffix=" GW" label="Capacidade combinada" />
@@ -83,7 +83,7 @@ export function HomeClient({ locale, posts }: HomeClientProps) {
       <section className="section" style={{ background: "var(--color-cream-deep)" }}>
         <div className="wrap">
           <Kicker>{t("pillarsKicker")}</Kicker>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32, marginTop: 40 }}>
+          <div className="grid-4" style={{ gap: 32, marginTop: 40 }}>
             {(t.raw("pillars") as any[]).map((p: any, i: number) => (
               <PillarCard key={i} number={p.n} title={p.t} body={p.b} />
             ))}
@@ -94,7 +94,7 @@ export function HomeClient({ locale, posts }: HomeClientProps) {
       {/* VOICE */}
       <section className="section">
         <div className="wrap">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 48, alignItems: "start" }}>
+          <div className="grid-1-2" style={{ gap: 48, alignItems: "start" }}>
             <div>
               <Kicker>{t("voiceKicker")}</Kicker>
               <PhotoPlaceholder label="FOTO · MARCELO RENAULT · 3:4" aspectRatio="3/4" />
@@ -126,7 +126,7 @@ export function HomeClient({ locale, posts }: HomeClientProps) {
             </div>
             <Button variant="gold" href={`/${locale}/blog`}>{t("newsAll")}</Button>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32, marginTop: 48 }}>
+          <div className="grid-3" style={{ gap: 32, marginTop: 48 }}>
             {posts.map((post, i) => (
               <article key={post._id || i} style={{ paddingTop: 24, borderTop: "1px solid #ffffff30" }}>
                 <div className="flex between" style={{ marginBottom: 24 }}>
@@ -152,7 +152,7 @@ export function HomeClient({ locale, posts }: HomeClientProps) {
       {/* JOIN CTA */}
       <section className="section">
         <div className="wrap">
-          <div style={{ background: "var(--color-green)", padding: "80px 64px", color: "var(--color-cream)", display: "grid", gridTemplateColumns: "2fr 1fr", gap: 64, alignItems: "center", position: "relative", overflow: "hidden" }}>
+          <div className="grid-2-1" style={{ background: "var(--color-green)", padding: "80px 64px", color: "var(--color-cream)", gap: 64, alignItems: "center", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: 0, right: 0, width: 360, height: 360, opacity: 0.05 }}>
               <LogoMark size={360} color="var(--color-cream)" accent="var(--color-gold)" />
             </div>

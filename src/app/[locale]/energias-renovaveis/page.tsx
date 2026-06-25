@@ -108,7 +108,7 @@ export default function EnergiasPage() {
           </div>
 
           {/* Tab content */}
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 64, alignItems: "start" }}>
+          <div className="grid-1-2" style={{ gap: 64, alignItems: "start" }}>
             <div>
               <Display variant="h1" style={{ marginBottom: 32, maxWidth: 600 }}>
                 {source.body.pt}
@@ -166,7 +166,7 @@ export default function EnergiasPage() {
           </div>
 
           {/* Inputs */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 32, marginBottom: 48 }}>
+          <div className="grid-3" style={{ gap: 32, marginBottom: 48 }}>
             {/* Capacity slider */}
             <div>
               <div className="mono" style={{ color: "var(--color-gold)", marginBottom: 12 }}>
@@ -250,7 +250,7 @@ export default function EnergiasPage() {
           </div>
 
           {/* Output grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0, border: "1px solid #ffffff20" }}>
+          <div className="grid-4" style={{ gap: 0, border: "1px solid #ffffff20" }}>
             <OutputCell value={`${annualGWh.toFixed(0)}`} unit="GWh/ano" label={t("annualEnergy")} />
             <OutputCell value={`${co2Tons.toFixed(0)}`} unit="t CO₂" label={t("avoidedCo2")} />
             <OutputCell value={households.toLocaleString()} unit="" label={t("households")} />

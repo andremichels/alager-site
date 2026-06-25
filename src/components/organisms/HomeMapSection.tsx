@@ -59,9 +59,8 @@ export function HomeMapSection({
 
         {/* Map + country list grid */}
         <div
+          className="grid-2-1"
           style={{
-            display: "grid",
-            gridTemplateColumns: "1.4fr 1fr",
             gap: 0,
             border: "1px solid var(--color-line)",
             background: "#fbfaf3",

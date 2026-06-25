@@ -251,7 +251,32 @@ body {
 .reveal-3 { transition-delay: 0.16s; }
 .reveal-4 { transition-delay: 0.24s; }
 
-/* ── Light flex/grid helpers ── */
+/* ── Responsive grid helpers ── */
+/* Use alongside inline grid styles: className="grid-2 grid-3 grid-4" */
+.grid-2, .grid-3, .grid-4, .grid-2-1, .grid-1-2 { display: grid; }
+
+@media (max-width: 1024px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr) !important; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+  .grid-2-1, .grid-1-2 { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4, .grid-2-1, .grid-1-2 {
+    grid-template-columns: 1fr !important;
+  }
+  .grid-2 { gap: 24px !important; }
+  .grid-3 { gap: 24px !important; }
+  .grid-4 { gap: 20px !important; }
+
+  .mobile-hidden { display: none !important; }
+  .mobile-stack { flex-direction: column !important; }
+  .mobile-full { width: 100% !important; }
+}
+
+@media (min-width: 769px) {
+  .desktop-hidden { display: none !important; }
+}
 .flex { display: flex; }
 .flex.between { justify-content: space-between; }
 .flex.center { align-items: center; }
@@ -262,16 +287,80 @@ body {
 .gap-32 { gap: 32px; }
 
 /* ── Responsive ── */
+/* Tablet: ≤1024px */
+@media (max-width: 1024px) {
+  .wrap {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* Mobile: ≤768px */
 @media (max-width: 768px) {
   .wrap {
     padding-left: 20px;
     padding-right: 20px;
   }
+
   .section {
     padding-top: 64px;
     padding-bottom: 64px;
   }
+
+  .section-tight {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  /* Typography scaling */
+  .display-1 {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+  .display-2 {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+  .h1 {
+    font-size: clamp(26px, 5vw, 36px);
+  }
+  .h2 {
+    font-size: clamp(20px, 4vw, 26px);
+  }
+  .lead {
+    font-size: 17px;
+  }
+
+  /* Collapse grids */
   .eyebrow-row {
     grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* Buttons full-width on mobile */
+  .btn-mobile-full {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Responsive grid helper */
+  .grid-collapse {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Topbar collapse */
+  .topbar-text {
+    display: none;
+  }
+}
+
+/* Small mobile: ≤480px */
+@media (max-width: 480px) {
+  .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .section {
+    padding-top: 48px;
+    padding-bottom: 48px;
   }
 }
