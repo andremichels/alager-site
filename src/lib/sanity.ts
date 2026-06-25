@@ -1,10 +1,11 @@
-// Alager Site — Sanity client for fetching data
+// Alager Site — Sanity client + typed fetch functions
 import { createClient } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
+import { cache } from "react";
 
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-06-25";
+const apiVersion = "2025-01-01";
+const token = process.env.SANITY_API_TOKEN;
 
 export const sanityClient = createClient({
   projectId,
@@ -12,66 +13,89 @@ export const sanityClient = createClient({
   apiVersion,
   useCdn: process.env.NODE_ENV === "production",
   perspective: "published",
-  stega: false,
+  token,
 });
 
-// Image URL builder
-const builder = imageUrlBuilder(sanityClient);
-export function urlFor(source: any) {
-  return builder.image(source);
+// ═══════════════════════════════════════════════
+// Typed fetch functions (cached with React cache)
+// ═══════════════════════════════════════════════
+
+export interface Post {
+  _id: string;
+  title: Record<string, string>;
+  excerpt: Record<string, string>;
+  cat: Record<string, string>;
+  slug?: { current: string };
+  date: string;
+  read: number;
+  featured: boolean;
+  membersOnly: boolean;
+  imageUrl?: string;
 }
 
-// Pre-configured GROQ fragments
-export const localeStringFragment = `
-  pt,
-  es,
-  en
-`;
+export interface BoardMember {
+  _id: string;
+  name: string;
+  role: Record<string, string>;
+  country: string;
+  order: number;
+  imageUrl?: string;
+}
 
-// Reusable queries
-export const queries = {
-  posts: `*[_type == "post"] | order(date desc) {
+export interface TimelineEntry {
+  _id: string;
+  year: number;
+  title: Record<string, string>;
+  body: Record<string, string>;
+}
+
+export interface InstitutionalText {
+  _id: string;
+  section: string;
+  content: Record<string, string>;
+}
+
+export const getPosts = cache(async (): Promise<Post[]> => {
+  return sanityClient.fetch(`*[_type == "post"] | order(date desc) {
     _id,
-    title { ${localeStringFragment} },
-    excerpt { ${localeStringFragment} },
+    title,
+    excerpt,
+    cat,
     "slug": slug.current,
-    "cat": cat { ${localeStringFragment} },
     date,
     read,
     featured,
     membersOnly,
-    "image": mainImage.asset->url
-  }`,
+    "imageUrl": mainImage.asset->url
+  }`);
+});
 
-  postsByFeatured: `*[_type == "post" && featured == true] | order(date desc) [0] {
-    _id,
-    title { ${localeStringFragment} },
-    excerpt { ${localeStringFragment} },
-    "slug": slug.current,
-    "cat": cat { ${localeStringFragment} },
-    date,
-    read,
-    membersOnly,
-    "image": mainImage.asset->url
-  }`,
-
-  boardMembers: `*[_type == "boardMember"] | order(order asc) {
+export const getBoardMembers = cache(async (): Promise<BoardMember[]> => {
+  return sanityClient.fetch(`*[_type == "boardMember"] | order(order asc) {
     _id,
     name,
-    "role": role { ${localeStringFragment} },
+    role,
     country,
     order,
-    "image": photo.asset->url
-  }`,
+    "imageUrl": photo.asset->url
+  }`);
+});
 
-  timeline: `*[_type == "timelineEntry"] | order(year asc) {
+export const getTimelineEntries = cache(async (): Promise<TimelineEntry[]> => {
+  return sanityClient.fetch(`*[_type == "timelineEntry"] | order(year asc) {
     _id,
     year,
-    "title": title { ${localeStringFragment} },
-    "body": body { ${localeStringFragment} }
-  }`,
+    title,
+    body
+  }`);
+});
 
-  institutionalText: `*[_type == "institutionalText" && section == $section][0] {
-    "content": content { ${localeStringFragment} }
-  }`,
-};
+export const getInstitutionalText = cache(
+  async (section: string): Promise<string | null> => {
+    const result = await sanityClient.fetch(
+      `*[_type == "institutionalText" && section == $section][0] { content }`,
+      { section }
+    );
+    return result?.content || null;
+  }
+);
