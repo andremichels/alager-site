@@ -75,11 +75,7 @@ npx sanity deploy --external
 ```
 
 - Use sempre `--url https://alager-site.vercel.app/studio` (URL pública do Studio). O registro persiste; a URL é o identificador estável.
-- Rode a cada mudança de schema, ou deixe o Vercel rodar automaticamente (ver `vercel.json`).
-
-### Deploy automático no Vercel
-
-O `vercel.json` roda `next build && sanity deploy --external` a cada build. Isso exige a env **`SANITY_AUTH_TOKEN`** (token de deploy) configurada no projeto Vercel — sem ela, o build falha no passo do deploy do schema.
+- Rode **manualmente** (local, com `sanity login`) a cada mudança de schema. **Não** rode no build do Vercel: `sanity deploy` exige login/token que não existe no ambiente de build e derruba o deploy.
 
 ### Bridge script
 Já injetado em `src/app/studio/layout.tsx` — não precisa mexer.

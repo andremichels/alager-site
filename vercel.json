@@ -1,4 +1,0 @@
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "next build && sanity deploy --external --url https://alager-site.vercel.app/studio"
-}
