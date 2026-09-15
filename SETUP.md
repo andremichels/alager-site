@@ -74,8 +74,7 @@ O Canvas é o ambiente de escrita de conteúdo da Sanity. Como o Studio é **emb
 npx sanity deploy --external
 ```
 
-- Na primeira vez, use `--url https://SEU-DOMINIO.vercel.app/studio` (URL pública do Studio).
-- O `appId` já está fixado em `sanity.cli.ts` — próximos deploys não perguntam.
+- Use sempre `--url https://alager-site.vercel.app/studio` (URL pública do Studio). O registro persiste; a URL é o identificador estável.
 - Rode a cada mudança de schema, ou deixe o Vercel rodar automaticamente (ver `vercel.json`).
 
 ### Deploy automático no Vercel
