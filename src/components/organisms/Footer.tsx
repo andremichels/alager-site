@@ -44,7 +44,7 @@ export function Footer({ locale }: FooterProps) {
           {/* Col 1 */}
           <div>
             <a href={`/${locale}`} style={{ display: "flex", alignItems: "center", textDecoration: "none", marginBottom: 24 }}>
-              <Logo height={32} variant="white" />
+              <Logo height={48} variant="white" />
             </a>
             <p style={linkStyle}>{t("tagline")}</p>
             <div style={{ marginTop: 24 }}>
