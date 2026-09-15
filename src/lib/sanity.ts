@@ -122,7 +122,7 @@ export async function getPosts(): Promise<Post[]> {
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const { data } = await sanityFetch({
-    query: `*[_type == "post" && slug.current == $slug][0] {
+    query: `*[_type == "post" && (slug.current == $slug || _id == $slug)][0] {
       _id,
       title,
       excerpt,
