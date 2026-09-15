@@ -17,9 +17,10 @@ const PER_PAGE = 6;
 interface BlogClientProps { locale: string; posts: Post[]; header?: PageHeader | null; }
 
 function formatDate(iso: string, lang: string) {
-  const d = new Date(iso);
-  const m: Record<string, string[]> = { pt: ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"], es: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"], en: ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"] };
-  return `${String(d.getDate()).padStart(2,"0")} ${(m[lang]||m.pt)[d.getMonth()]} ${d.getFullYear()}`;
+  // Parse "YYYY-MM-DD" as a LOCAL date (see HomeClient note on UTC hydration).
+  const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
+  const months: Record<string, string[]> = { pt: ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"], es: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"], en: ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"] };
+  return `${String(d).padStart(2,"0")} ${(months[lang]||months.pt)[m-1]} ${y}`;
 }
 
 export function BlogClient({ locale, posts, header }: BlogClientProps) {

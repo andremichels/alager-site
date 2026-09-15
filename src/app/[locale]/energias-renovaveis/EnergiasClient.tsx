@@ -268,8 +268,8 @@ export default function EnergiasClient({ sources, countries, header }: EnergiasC
           <div className="grid-4" style={{ gap: 0, border: "1px solid #ffffff20" }}>
             <OutputCell value={`${annualGWh.toFixed(0)}`} unit={t("gwhYear")} label={t("annualEnergy")} />
             <OutputCell value={`${co2Tons.toFixed(0)}`} unit="t CO₂" label={t("avoidedCo2")} />
-            <OutputCell value={households.toLocaleString()} unit="" label={t("households")} />
-            <OutputCell value={trees.toLocaleString()} unit="" label={t("trees")} />
+            <OutputCell value={Math.round(households).toLocaleString(locale)} unit="" label={t("households")} />
+            <OutputCell value={Math.round(trees).toLocaleString(locale)} unit="" label={t("trees")} />
           </div>
 
           {/* Disclaimer */}

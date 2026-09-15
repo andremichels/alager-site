@@ -16,14 +16,15 @@ interface PostDetailClientProps {
 }
 
 function formatDate(iso: string, lang: string) {
-  const d = new Date(iso);
-  const m: Record<string, string[]> = {
+  // Parse "YYYY-MM-DD" as a LOCAL date (see HomeClient note on UTC hydration).
+  const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
+  const months: Record<string, string[]> = {
     pt: ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"],
     es: ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
     en: ["January","February","March","April","May","June","July","August","September","October","November","December"],
   };
-  const months = m[lang] || m.pt;
-  return `${d.getDate()} de ${months[d.getMonth()]} de ${d.getFullYear()}`;
+  const monthsForLang = months[lang] || months.pt;
+  return `${d} de ${monthsForLang[m - 1]} de ${y}`;
 }
 
 export function PostDetailClient({ locale, post }: PostDetailClientProps) {

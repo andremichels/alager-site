@@ -28,14 +28,17 @@ interface Pillar {
 }
 
 function formatDate(iso: string, lang: string) {
-  const d = new Date(iso);
+  // Parse "YYYY-MM-DD" as a LOCAL date. `new Date("YYYY-MM-DD")` is UTC
+  // midnight, which breaks hydration when server (UTC) and client (local
+  // timezone) disagree on the day.
+  const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
   const months: Record<string, string[]> = {
     pt: ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"],
     es: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
     en: ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],
   };
-  const m = months[lang] || months.pt;
-  return `${String(d.getDate()).padStart(2, "0")} ${m[d.getMonth()]} ${d.getFullYear()}`;
+  const monthsForLang = months[lang] || months.pt;
+  return `${String(d).padStart(2, "0")} ${monthsForLang[m - 1]} ${y}`;
 }
 
 export function HomeClient({ locale, posts, home, countries }: HomeClientProps) {
