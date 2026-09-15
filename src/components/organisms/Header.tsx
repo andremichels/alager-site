@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { LogoMark } from "@/components/atoms/LogoMark";
+import { Logo } from "@/components/atoms/Logo";
 import { Button } from "@/components/atoms/Button";
 import { NavLink } from "@/components/molecules/NavLink";
 import { LangSwitcher } from "@/components/molecules/LangSwitcher";
@@ -85,11 +85,8 @@ export function Header({ locale }: HeaderProps) {
       }}>
         <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           {/* Logo */}
-          <a href={`/${locale}`} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", zIndex: 51 }}>
-            <LogoMark size={32} />
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: 14, letterSpacing: "0.12em", color: "var(--color-green)", fontWeight: 600 }}>
-              ALAGER
-            </span>
+          <a href={`/${locale}`} style={{ display: "flex", alignItems: "center", textDecoration: "none", zIndex: 51 }}>
+            <Logo height={28} />
           </a>
 
           {/* Desktop nav */}

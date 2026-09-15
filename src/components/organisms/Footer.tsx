@@ -2,7 +2,7 @@
 // Grid collapses: 4 cols desktop → 2 tablet → 1 mobile
 
 import { useTranslations } from "next-intl";
-import { LogoMark } from "@/components/atoms/LogoMark";
+import { Logo } from "@/components/atoms/Logo";
 import { MonoLabel } from "@/components/atoms/MonoLabel";
 import { NewsletterForm } from "@/components/molecules/NewsletterForm";
 
@@ -43,9 +43,8 @@ export function Footer({ locale }: FooterProps) {
         <div className="grid-4" style={{ gap: 48 }}>
           {/* Col 1 */}
           <div>
-            <a href={`/${locale}`} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", marginBottom: 24 }}>
-              <LogoMark size={32} accent="var(--color-gold)" />
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 14, letterSpacing: "0.12em", color: "var(--color-cream)", fontWeight: 600 }}>ALAGER</span>
+            <a href={`/${locale}`} style={{ display: "flex", alignItems: "center", textDecoration: "none", marginBottom: 24 }}>
+              <Logo height={32} variant="white" />
             </a>
             <p style={linkStyle}>{t("tagline")}</p>
             <div style={{ marginTop: 24 }}>
