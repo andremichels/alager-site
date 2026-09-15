@@ -49,7 +49,7 @@ export function Footer({ locale }: FooterProps) {
             </a>
             <p style={linkStyle}>{t("tagline")}</p>
             <div style={{ marginTop: 24 }}>
-              <MonoLabel color="var(--color-gold)">{locale === "pt" ? "Sede" : "Headquarters"}</MonoLabel>
+              <MonoLabel color="var(--color-gold)">{t("hq")}</MonoLabel>
               <p style={{ ...linkStyle, marginTop: 8 }}>{t("addr")}</p>
               <p style={{ ...linkStyle, marginTop: 4 }}>{t("addrLine")}</p>
             </div>

@@ -3,6 +3,8 @@
 // Or: npx tsx sanity/seed.ts
 
 import { createClient } from "@sanity/client";
+import { ENERGY_SOURCES } from "../src/data/energy-sources";
+import { COUNTRIES } from "../src/data/countries";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "your-project-id",
@@ -109,6 +111,33 @@ async function seed() {
   for (const post of posts) {
     await client.create({ _type: "post", ...post });
     console.log(`  ✓ Post: ${post.title.pt.slice(0, 50)}...`);
+  }
+
+  // 5. Energy sources
+  for (const [i, source] of ENERGY_SOURCES.entries()) {
+    await client.create({
+      _type: "energySource",
+      key: source.key,
+      name: source.name,
+      order: i,
+      body: source.body,
+      focus: source.focus,
+      stats: source.stats.map((s) => ({ value: s.value, label: s.label })),
+    });
+    console.log(`  ✓ Energy source: ${source.key}`);
+  }
+
+  // 6. Countries
+  for (const c of COUNTRIES) {
+    await client.create({
+      _type: "country",
+      code: c.code,
+      name: c.name,
+      members: c.members,
+      capacity: c.capacity,
+      member: c.member,
+    });
+    console.log(`  ✓ Country: ${c.code}`);
   }
 
   console.log("\n✅ Seed complete!");

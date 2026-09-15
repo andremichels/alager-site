@@ -22,6 +22,7 @@ export const SOURCE_PHYS: Record<string, EnergySourcePhysics> = {
 // Energy source display info (tabs on /energias-renovaveis)
 export interface EnergySourceInfo {
   key: string;
+  name: Record<string, string>;
   stats: { value: string; label: Record<string, string> }[];
   body: Record<string, string>;
   focus: Record<string, string>;
@@ -30,6 +31,7 @@ export interface EnergySourceInfo {
 export const ENERGY_SOURCES: EnergySourceInfo[] = [
   {
     key: "Solar",
+    name: { pt: "Solar", es: "Solar", en: "Solar" },
     stats: [
       { value: "37 GW", label: { pt: "Capacidade instalada na região", es: "Capacidad instalada en la región", en: "Installed regional capacity" } },
       { value: "12", label: { pt: "Países com leilões dedicados", es: "Países con subastas dedicadas", en: "Countries with dedicated auctions" } },
@@ -48,6 +50,7 @@ export const ENERGY_SOURCES: EnergySourceInfo[] = [
   },
   {
     key: "Eólica",
+    name: { pt: "Eólica", es: "Eólica", en: "Wind" },
     stats: [
       { value: "29 GW", label: { pt: "Capacidade instalada", es: "Capacidad instalada", en: "Installed capacity" } },
       { value: "8", label: { pt: "Países com parques operacionais", es: "Países con parques operativos", en: "Countries with operating farms" } },
@@ -66,6 +69,7 @@ export const ENERGY_SOURCES: EnergySourceInfo[] = [
   },
   {
     key: "Biomassa",
+    name: { pt: "Biomassa", es: "Biomasa", en: "Biomass" },
     stats: [
       { value: "16 GW", label: { pt: "Capacidade instalada", es: "Capacidad instalada", en: "Installed capacity" } },
       { value: "—", label: { pt: "Despachável e firme", es: "Despachable y firme", en: "Dispatchable and firm" } },
@@ -84,6 +88,7 @@ export const ENERGY_SOURCES: EnergySourceInfo[] = [
   },
   {
     key: "Hídrica",
+    name: { pt: "Hídrica", es: "Hídrica", en: "Hydro" },
     stats: [
       { value: "188 GW", label: { pt: "Capacidade instalada", es: "Capacidad instalada", en: "Installed capacity" } },
       { value: "−45%", label: { pt: "Da matriz elétrica regional", es: "De la matriz eléctrica regional", en: "Of the regional electricity mix" } },
@@ -102,6 +107,7 @@ export const ENERGY_SOURCES: EnergySourceInfo[] = [
   },
   {
     key: "Hidrogênio",
+    name: { pt: "Hidrogênio", es: "Hidrógeno", en: "Hydrogen" },
     stats: [
       { value: "78", label: { pt: "Projetos anunciados na região", es: "Proyectos anunciados en la región", en: "Announced projects in the region" } },
       { value: "4", label: { pt: "Países com estratégia nacional", es: "Países con estrategia nacional", en: "Countries with national strategies" } },

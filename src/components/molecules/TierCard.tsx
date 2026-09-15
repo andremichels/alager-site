@@ -13,7 +13,8 @@ interface TierCardProps {
   features: string[];
   featured?: boolean;
   onSelect?: () => void;
-  ctaLabel?: string;
+  ctaLabel: string;
+  recommendedLabel: string;
 }
 
 export function TierCard({
@@ -23,7 +24,8 @@ export function TierCard({
   features,
   featured = false,
   onSelect,
-  ctaLabel = "Manifestar interesse",
+  ctaLabel,
+  recommendedLabel,
 }: TierCardProps) {
   return (
     <div
@@ -49,7 +51,7 @@ export function TierCard({
             fontSize: 10,
           }}
         >
-          Recomendado
+          {recommendedLabel}
         </div>
       )}
       <Display variant="h3">{name}</Display>

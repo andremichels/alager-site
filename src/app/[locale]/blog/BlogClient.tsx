@@ -10,11 +10,11 @@ import { Tag } from "@/components/atoms/Tag";
 import { SearchInput } from "@/components/molecules/SearchInput";
 import { BlogPostCard } from "@/components/molecules/BlogPostCard";
 import { PhotoPlaceholder } from "@/components/atoms/PhotoPlaceholder";
-import type { Post } from "@/lib/sanity";
+import type { Post, PageHeader } from "@/lib/sanity";
 
 const PER_PAGE = 6;
 
-interface BlogClientProps { locale: string; posts: Post[]; }
+interface BlogClientProps { locale: string; posts: Post[]; header?: PageHeader | null; }
 
 function formatDate(iso: string, lang: string) {
   const d = new Date(iso);
@@ -22,8 +22,11 @@ function formatDate(iso: string, lang: string) {
   return `${String(d.getDate()).padStart(2,"0")} ${(m[lang]||m.pt)[d.getMonth()]} ${d.getFullYear()}`;
 }
 
-export function BlogClient({ locale, posts }: BlogClientProps) {
+export function BlogClient({ locale, posts, header }: BlogClientProps) {
   const t = useTranslations("blog");
+  const L = (v?: Record<string, string>) => v?.[locale] || "";
+  const headline = L(header?.headline) || t("headline");
+  const lead = L(header?.lead) || t("lead");
   const cats = [t("all"), ...t.raw("categories")];
   const [activeCat, setActiveCat] = useState(t("all"));
   const [search, setSearch] = useState("");
@@ -77,8 +80,8 @@ export function BlogClient({ locale, posts }: BlogClientProps) {
       <section style={{ paddingTop: 80, paddingBottom: 48 }}>
         <div className="wrap">
           <Kicker>{t("kicker")}</Kicker>
-          <Display variant="display-1" style={{ marginTop: 24, marginBottom: 32, maxWidth: 1000 }}>{t("headline")}</Display>
-          <BodyText variant="lead" style={{ maxWidth: 720 }}>{t("lead")}</BodyText>
+          <Display variant="display-1" style={{ marginTop: 24, marginBottom: 32, maxWidth: 1000 }}>{headline}</Display>
+          <BodyText variant="lead" style={{ maxWidth: 720 }}>{lead}</BodyText>
         </div>
       </section>
 
@@ -146,8 +149,8 @@ export function BlogClient({ locale, posts }: BlogClientProps) {
               {/* Page info */}
               {totalPages > 1 && (
                 <p className="mono" style={{ textAlign: "center", color: "var(--color-muted)", marginTop: 16 }}>
-                  {locale === "pt" ? `Página ${safePage} de ${totalPages}` : locale === "es" ? `Página ${safePage} de ${totalPages}` : `Page ${safePage} of ${totalPages}`}
-                  {" · "}{filtered.length} {locale === "pt" ? "artigos" : locale === "es" ? "artículos" : "articles"}
+                  {t("pageOf", { page: safePage, total: totalPages })}
+                  {" · "}{filtered.length} {t("items")}
                 </p>
               )}
             </>

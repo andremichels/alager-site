@@ -109,7 +109,7 @@ export function Header({ locale }: HeaderProps) {
           {/* Hamburger button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-label={menuOpen ? t("menuClose") : t("menuOpen")}
             className="hamburger-btn"
             style={{
               display: "none",

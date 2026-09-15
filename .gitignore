@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# hermes agent internal
+.hermes/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

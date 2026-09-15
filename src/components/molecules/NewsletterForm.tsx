@@ -3,6 +3,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/atoms/Input";
 import { Button } from "@/components/atoms/Button";
 
@@ -12,6 +13,7 @@ interface NewsletterFormProps {
 }
 
 export function NewsletterForm({ placeholder, ctaLabel }: NewsletterFormProps) {
+  const t = useTranslations("footer");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -26,7 +28,7 @@ export function NewsletterForm({ placeholder, ctaLabel }: NewsletterFormProps) {
   if (submitted) {
     return (
       <div style={{ color: "var(--color-sage)", fontSize: 14 }}>
-        Inscrito ✓
+        {t("subscribed")}
       </div>
     );
   }

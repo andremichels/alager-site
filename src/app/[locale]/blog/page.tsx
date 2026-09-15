@@ -1,5 +1,5 @@
 // Alager Site — Blog page (fetches data, passes to client)
-import { getPosts } from "@/lib/sanity";
+import { getPosts, getPageHeader } from "@/lib/sanity";
 import { BlogClient } from "./BlogClient";
 
 export default async function BlogPage({
@@ -8,7 +8,7 @@ export default async function BlogPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const posts = await getPosts();
+  const [posts, header] = await Promise.all([getPosts(), getPageHeader("blog")]);
 
-  return <BlogClient locale={locale} posts={posts} />;
+  return <BlogClient locale={locale} posts={posts} header={header} />;
 }

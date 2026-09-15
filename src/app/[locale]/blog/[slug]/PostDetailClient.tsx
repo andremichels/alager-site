@@ -52,7 +52,7 @@ export function PostDetailClient({ locale, post }: PostDetailClientProps) {
               marginBottom: 32,
             }}
           >
-            ← {locale === "pt" ? "Voltar ao blog" : locale === "es" ? "Volver al blog" : "Back to blog"}
+            ← {t("back")}
           </a>
 
           {/* Meta row */}
@@ -148,7 +148,7 @@ export function PostDetailClient({ locale, post }: PostDetailClientProps) {
               }}
             >
               <MonoLabel color="var(--color-green-deep)">
-                ALAGER · {locale === "pt" ? "Acompanhamento" : locale === "es" ? "Seguimiento" : "Tracking"}
+                ALAGER · {t("tracking")}
               </MonoLabel>
               <p
                 style={{
@@ -159,11 +159,7 @@ export function PostDetailClient({ locale, post }: PostDetailClientProps) {
                   marginBottom: 0,
                 }}
               >
-                {locale === "pt"
-                  ? "A ALAGER acompanha este tema por meio de seus grupos técnicos e produz análises exclusivas para associados. Para ter acesso aos relatórios completos, associe-se."
-                  : locale === "es"
-                  ? "ALAGER sigue este tema a través de sus grupos técnicos y produce análisis exclusivos para asociados. Para acceder a los informes completos, asóciese."
-                  : "ALAGER tracks this topic through its technical working groups and produces exclusive analysis for members. To access full reports, become a member."}
+                {t("contextBody")}
               </p>
             </div>
           </div>
@@ -171,7 +167,7 @@ export function PostDetailClient({ locale, post }: PostDetailClientProps) {
           {/* Back button */}
           <div style={{ marginTop: 64, textAlign: "center" }}>
             <Button variant="outline" href={`/${locale}/blog`}>
-              ← {locale === "pt" ? "Voltar ao blog" : locale === "es" ? "Volver al blog" : "Back to blog"}
+              ← {t("back")}
             </Button>
           </div>
         </div>

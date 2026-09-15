@@ -11,13 +11,20 @@ import { StatCounter } from "@/components/molecules/StatCounter";
 import { PillarCard } from "@/components/molecules/PillarCard";
 import { PhotoPlaceholder } from "@/components/atoms/PhotoPlaceholder";
 import { LogoMark } from "@/components/atoms/LogoMark";
-import { HomeMapSection } from "@/components/organisms/HomeMapSection";
-import { COUNTRIES } from "@/data/countries";
-import type { Post } from "@/lib/sanity";
+import type { Country } from "@/data/countries";
+import type { Post, HomeSettings } from "@/lib/sanity";
 
 interface HomeClientProps {
   locale: string;
   posts: Post[];
+  home?: HomeSettings | null;
+  countries: Country[];
+}
+
+interface Pillar {
+  n: string;
+  t: string;
+  b: string;
 }
 
 function formatDate(iso: string, lang: string) {
@@ -31,13 +38,42 @@ function formatDate(iso: string, lang: string) {
   return `${String(d.getDate()).padStart(2, "0")} ${m[d.getMonth()]} ${d.getFullYear()}`;
 }
 
-export function HomeClient({ locale, posts }: HomeClientProps) {
+export function HomeClient({ locale, posts, home, countries }: HomeClientProps) {
   const t = useTranslations("home");
   const tBlog = useTranslations("blog");
 
-  const memberTotal = COUNTRIES.filter((c) => c.member).reduce((a, c) => a + c.members, 0);
-  const capacityTotal = COUNTRIES.filter((c) => c.member).reduce((a, c) => a + c.capacity, 0);
-  const countryTotal = COUNTRIES.filter((c) => c.member).length;
+  // Resolve a trilingual field for the active locale, or "" if absent.
+  const L = (v?: Record<string, string>) => v?.[locale] ?? "";
+
+  const kicker = L(home?.heroKicker) || t("kicker");
+  const headline = L(home?.heroHeadline) || t("headline");
+  const lead = L(home?.heroLead) || t("lead");
+  const ctaPrimary = L(home?.heroCtaPrimary) || t("ctaPrimary");
+  const ctaSecondary = L(home?.heroCtaSecondary) || t("ctaSecondary");
+
+  const pillarsKicker = L(home?.pillarsKicker) || t("pillarsKicker");
+  const sanityPillars = home?.pillars?.map((p) => ({ n: p.n, t: L(p.t), b: L(p.b) }));
+  const pillars: Pillar[] = sanityPillars?.length
+    ? sanityPillars
+    : (t.raw("pillars") as Pillar[]);
+
+  const voiceKicker = L(home?.voiceKicker) || t("voiceKicker");
+  const voiceQuote = L(home?.voiceQuote) || t("voiceQuote");
+  const voiceName = home?.voiceName || t("voiceName");
+  const voiceRole = L(home?.voiceRole) || t("voiceRole");
+  const voiceBody = L(home?.voiceBody) || t("voiceBody");
+
+  const newsKicker = L(home?.newsKicker) || t("newsKicker");
+  const newsTitle = L(home?.newsTitle) || t("newsTitle");
+  const newsAll = L(home?.newsAll) || t("newsAll");
+
+  const joinKicker = L(home?.joinKicker) || t("joinKicker");
+  const joinTitle = L(home?.joinTitle) || t("joinTitle");
+  const joinBody = L(home?.joinBody) || t("joinBody");
+
+  const memberTotal = countries.filter((c) => c.member).reduce((a, c) => a + c.members, 0);
+  const capacityTotal = countries.filter((c) => c.member).reduce((a, c) => a + c.capacity, 0);
+  const countryTotal = countries.filter((c) => c.member).length;
 
   return (
     <main>
@@ -45,46 +81,36 @@ export function HomeClient({ locale, posts }: HomeClientProps) {
       <section style={{ paddingTop: 80, paddingBottom: 64 }}>
         <div className="wrap">
           <div style={{ maxWidth: 900 }}>
-            <Kicker>{t("kicker")}</Kicker>
+            <Kicker>{kicker}</Kicker>
             <Display variant="display-1" style={{ marginTop: 24, marginBottom: 32 }}>
-              {t("headline")}
+              {headline}
             </Display>
             <BodyText variant="lead" style={{ maxWidth: 540, marginBottom: 40 }}>
-              {t("lead")}
+              {lead}
             </BodyText>
             <div className="flex gap-16" style={{ flexWrap: "wrap" }}>
               <Button variant="primary" href={`/${locale}/associe-se`}>
-                {t("ctaPrimary")} <Icon.Arrow />
+                {ctaPrimary} <Icon.Arrow />
               </Button>
               <Button variant="outline" href={`/${locale}/quem-somos`}>
-                {t("ctaSecondary")}
+                {ctaSecondary}
               </Button>
             </div>
             <div className="grid-3" style={{ marginTop: 72, gap: 24, paddingTop: 32, borderTop: "1px solid var(--color-line)" }}>
-              <StatCounter value={countryTotal} label="Países representados" />
-              <StatCounter value={memberTotal} label="Associados ativos" />
-              <StatCounter value={Math.round(capacityTotal)} suffix=" GW" label="Capacidade combinada" />
+              <StatCounter value={countryTotal} label={t("statCountries")} />
+              <StatCounter value={memberTotal} label={t("statMembers")} />
+              <StatCounter value={Math.round(capacityTotal)} suffix=" GW" label={t("statCapacity")} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* MAP */}
-      <HomeMapSection
-        locale={locale}
-        mapTitle={t("mapTitle")}
-        mapKicker={t("mapKicker")}
-        mapBody={t("mapBody")}
-        mapLegendMember={t("mapLegendMember")}
-        mapLegendObs={t("mapLegendObs")}
-      />
-
       {/* PILLARS */}
       <section className="section" style={{ background: "var(--color-cream-deep)" }}>
         <div className="wrap">
-          <Kicker>{t("pillarsKicker")}</Kicker>
+          <Kicker>{pillarsKicker}</Kicker>
           <div className="grid-4" style={{ gap: 32, marginTop: 40 }}>
-            {(t.raw("pillars") as any[]).map((p: any, i: number) => (
+            {pillars.map((p, i) => (
               <PillarCard key={i} number={p.n} title={p.t} body={p.b} />
             ))}
           </div>
@@ -96,19 +122,19 @@ export function HomeClient({ locale, posts }: HomeClientProps) {
         <div className="wrap">
           <div className="grid-1-2" style={{ gap: 48, alignItems: "start" }}>
             <div>
-              <Kicker>{t("voiceKicker")}</Kicker>
+              <Kicker>{voiceKicker}</Kicker>
               <PhotoPlaceholder label="FOTO · MARCELO RENAULT · 3:4" aspectRatio="3/4" />
               <div style={{ marginTop: 16 }}>
-                <div className="serif" style={{ fontSize: 22 }}>{t("voiceName")}</div>
-                <div className="mono" style={{ color: "var(--color-muted)", marginTop: 4 }}>{t("voiceRole")}</div>
+                <div className="serif" style={{ fontSize: 22 }}>{voiceName}</div>
+                <div className="mono" style={{ color: "var(--color-muted)", marginTop: 4 }}>{voiceRole}</div>
               </div>
             </div>
             <div style={{ paddingTop: 24 }}>
               <div className="serif" style={{ fontSize: "clamp(28px, 3vw, 44px)", lineHeight: 1.25, letterSpacing: "-0.01em", color: "var(--color-green-deep)" }}>
-                {t("voiceQuote")}
+                {voiceQuote}
               </div>
               <div style={{ width: "100%", height: 1, background: "var(--color-line)", margin: "40px 0" }} />
-              <BodyText style={{ maxWidth: 620 }}>A presidência da ALAGER é eleita pela Assembleia Geral para mandatos de dois anos.</BodyText>
+              <BodyText style={{ maxWidth: 620 }}>{voiceBody}</BodyText>
             </div>
           </div>
         </div>
@@ -119,12 +145,12 @@ export function HomeClient({ locale, posts }: HomeClientProps) {
         <div className="wrap">
           <div className="eyebrow-row" style={{ alignItems: "flex-end" }}>
             <div>
-              <Kicker gold>{t("newsKicker")}</Kicker>
+              <Kicker gold>{newsKicker}</Kicker>
               <Display variant="display-2" style={{ color: "var(--color-cream)", marginTop: 16 }}>
-                {t("newsTitle")}
+                {newsTitle}
               </Display>
             </div>
-            <Button variant="gold" href={`/${locale}/blog`}>{t("newsAll")}</Button>
+            <Button variant="gold" href={`/${locale}/blog`}>{newsAll}</Button>
           </div>
           <div className="grid-3" style={{ gap: 32, marginTop: 48 }}>
             {posts.map((post, i) => (
@@ -157,17 +183,14 @@ export function HomeClient({ locale, posts }: HomeClientProps) {
               <LogoMark size={360} color="var(--color-cream)" accent="var(--color-gold)" />
             </div>
             <div>
-              <Kicker gold>{t("joinKicker")}</Kicker>
-              <Display variant="display-2" style={{ marginTop: 20, color: "var(--color-cream)" }}>{t("joinTitle")}</Display>
-              <p style={{ marginTop: 20, fontSize: 17, lineHeight: 1.55, color: "#c6d4c9", maxWidth: 600 }}>{t("joinBody")}</p>
+              <Kicker gold>{joinKicker}</Kicker>
+              <Display variant="display-2" style={{ marginTop: 20, color: "var(--color-cream)" }}>{joinTitle}</Display>
+              <p style={{ marginTop: 20, fontSize: 17, lineHeight: 1.55, color: "#c6d4c9", maxWidth: 600 }}>{joinBody}</p>
             </div>
             <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
               <Button variant="gold" href={`/${locale}/associe-se`} style={{ justifyContent: "center" }}>
-                {t("ctaPrimary")} <Icon.Arrow />
+                {ctaPrimary} <Icon.Arrow />
               </Button>
-              <button className="btn" style={{ background: "transparent", border: "1px solid #ffffff40", color: "var(--color-cream)", justifyContent: "center" }}>
-                Conheça a estrutura
-              </button>
             </div>
           </div>
         </div>

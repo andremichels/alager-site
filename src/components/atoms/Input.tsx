@@ -8,6 +8,7 @@ interface InputProps {
   placeholder?: string;
   error?: string;
   required?: boolean;
+  requiredLabel?: string;
   options?: { value: string; label: string }[];
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
@@ -21,6 +22,7 @@ export function Input({
   placeholder,
   error,
   required = false,
+  requiredLabel,
   options,
   value,
   onChange,
@@ -105,7 +107,7 @@ export function Input({
   return (
     <div className={className}>
       <label htmlFor={name} style={labelStyle}>
-        {label} {required && "· OBRIGATÓRIO"}
+        {label} {required && requiredLabel ? `· ${requiredLabel}` : ""}
       </label>
       {renderField()}
       {error && <div style={errorStyle}>{error}</div>}
