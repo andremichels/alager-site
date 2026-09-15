@@ -1,22 +1,8 @@
-// Alager Site — Sanity client + typed fetch functions
-import { createClient } from "next-sanity";
-import { cache } from "react";
+// Alager Site — Sanity types + typed fetch functions (via Live Content API)
+import { draftMode } from "next/headers";
+import { sanityFetch } from "@/lib/live";
 import type { EnergySourceInfo } from "@/data/energy-sources";
 import type { Country } from "@/data/countries";
-
-export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
-export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-06-25";
-const token = process.env.SANITY_API_TOKEN;
-
-export const sanityClient = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: process.env.NODE_ENV === "production",
-  perspective: "published",
-  token,
-});
 
 // ═══════════════════════════════════════════════
 // Types
@@ -101,27 +87,42 @@ export interface PageHeader {
 }
 
 // ═══════════════════════════════════════════════
-// Fetch functions (cached with React cache)
+// Fetch functions (via sanityFetch — stega + draft mode aware)
 // ═══════════════════════════════════════════════
 
-export const getPosts = cache(async (): Promise<Post[]> => {
-  return sanityClient.fetch(`*[_type == "post"] | order(date desc) {
-    _id,
-    title,
-    excerpt,
-    cat,
-    "slug": slug { current },
-    date,
-    read,
-    featured,
-    membersOnly,
-    "imageUrl": mainImage.asset->url
-  }`);
-});
+// Resolve perspective + stega explicitly. next-sanity v13 defaults to a
+// draft perspective (via cookie) when a serverToken is present, which returns
+// nothing for published-only documents — so we resolve it ourselves.
+async function liveOptions() {
+  const { isEnabled } = await draftMode();
+  return {
+    perspective: isEnabled ? ("drafts" as const) : ("published" as const),
+    stega: isEnabled,
+  };
+}
 
-export const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
-  return sanityClient.fetch(
-    `*[_type == "post" && slug.current == $slug][0] {
+export async function getPosts(): Promise<Post[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "post"] | order(date desc) {
+      _id,
+      title,
+      excerpt,
+      cat,
+      "slug": slug { current },
+      date,
+      read,
+      featured,
+      membersOnly,
+      "imageUrl": mainImage.asset->url
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as Post[];
+}
+
+export async function getPostBySlug(slug: string): Promise<Post | null> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "post" && slug.current == $slug][0] {
       _id,
       title,
       excerpt,
@@ -134,74 +135,105 @@ export const getPostBySlug = cache(async (slug: string): Promise<Post | null> =>
       membersOnly,
       "imageUrl": mainImage.asset->url
     }`,
-    { slug }
-  );
-});
+    params: { slug },
+    ...(await liveOptions()),
+  });
+  return (data as Post | null) ?? null;
+}
 
-export const getBoardMembers = cache(async (): Promise<BoardMember[]> => {
-  return sanityClient.fetch(`*[_type == "boardMember"] | order(order asc) {
-    _id, name, role, country, order,
-    "imageUrl": photo.asset->url
-  }`);
-});
+export async function getBoardMembers(): Promise<BoardMember[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "boardMember"] | order(order asc) {
+      _id, name, role, country, order,
+      "imageUrl": photo.asset->url
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as BoardMember[];
+}
 
-export const getTimelineEntries = cache(async (): Promise<TimelineEntry[]> => {
-  return sanityClient.fetch(`*[_type == "timelineEntry"] | order(year asc) {
-    _id, year, title, body
-  }`);
-});
+export async function getTimelineEntries(): Promise<TimelineEntry[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "timelineEntry"] | order(year asc) {
+      _id, year, title, body
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as TimelineEntry[];
+}
 
-export const getInstitutionalText = cache(
-  async (section: string): Promise<Record<string, string> | null> => {
-    const result = await sanityClient.fetch(
-      `*[_type == "institutionalText" && section == $section][0] { content }`,
-      { section }
-    );
-    return result?.content || null;
-  }
-);
+export async function getInstitutionalText(
+  section: string
+): Promise<Record<string, string> | null> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "institutionalText" && section == $section][0] { content }`,
+    params: { section },
+    ...(await liveOptions()),
+  });
+  return (data as { content: Record<string, string> } | null)?.content ?? null;
+}
 
-export const getEnergySources = cache(async (): Promise<EnergySourceInfo[]> => {
-  return sanityClient.fetch(`*[_type == "energySource"] | order(order asc) {
-    key, name, body, focus,
-    "stats": stats[] { value, label }
-  }`);
-});
+export async function getEnergySources(): Promise<EnergySourceInfo[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "energySource"] | order(order asc) {
+      key, name, body, focus,
+      "stats": stats[] { value, label }
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as EnergySourceInfo[];
+}
 
-export const getCountries = cache(async (): Promise<Country[]> => {
-  return sanityClient.fetch(`*[_type == "country"] | order(code asc) {
-    code, name, members, capacity, member
-  }`);
-});
+export async function getCountries(): Promise<Country[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "country"] | order(code asc) {
+      code, name, members, capacity, member
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as Country[];
+}
 
-export const getHomeSettings = cache(async (): Promise<HomeSettings | null> => {
-  return sanityClient.fetch(`*[_type == "homeSettings"][0] {
-    heroKicker, heroHeadline, heroLead, heroCtaPrimary, heroCtaSecondary,
-    pillarsKicker,
-    "pillars": pillars[] { n, t, b },
-    voiceKicker, voiceQuote, voiceName, voiceRole, voiceBody,
-    newsKicker, newsTitle, newsAll,
-    joinKicker, joinTitle, joinBody
-  }`);
-});
+export async function getHomeSettings(): Promise<HomeSettings | null> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "homeSettings"][0] {
+      heroKicker, heroHeadline, heroLead, heroCtaPrimary, heroCtaSecondary,
+      pillarsKicker,
+      "pillars": pillars[] { n, t, b },
+      voiceKicker, voiceQuote, voiceName, voiceRole, voiceBody,
+      newsKicker, newsTitle, newsAll,
+      joinKicker, joinTitle, joinBody
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data as HomeSettings | null) ?? null;
+}
 
-export const getMembershipTiers = cache(async (): Promise<MembershipTier[]> => {
-  return sanityClient.fetch(`*[_type == "membershipTier"] | order(order asc) {
-    key, name, price, desc, features, order
-  }`);
-});
+export async function getMembershipTiers(): Promise<MembershipTier[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "membershipTier"] | order(order asc) {
+      key, name, price, desc, features, order
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as MembershipTier[];
+}
 
-export const getPrinciples = cache(async (): Promise<Principle[]> => {
-  return sanityClient.fetch(`*[_type == "principle"] | order(order asc) {
-    t, b, order
-  }`);
-});
+export async function getPrinciples(): Promise<Principle[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "principle"] | order(order asc) {
+      t, b, order
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as Principle[];
+}
 
-export const getPageHeader = cache(
-  async (page: string): Promise<PageHeader | null> => {
-    return sanityClient.fetch(
-      `*[_type == "pageHeader" && page == $page][0] { page, headline, lead }`,
-      { page }
-    );
-  }
-);
+export async function getPageHeader(page: string): Promise<PageHeader | null> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "pageHeader" && page == $page][0] { page, headline, lead }`,
+    params: { page },
+    ...(await liveOptions()),
+  });
+  return (data as PageHeader | null) ?? null;
+}
