@@ -2,6 +2,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { stegaClean } from "@sanity/client/stega";
 import { Kicker } from "@/components/atoms/Kicker";
 import { Display } from "@/components/atoms/Display";
 import { BodyText } from "@/components/atoms/BodyText";
@@ -100,7 +101,7 @@ export function PostDetailClient({ locale, post }: PostDetailClientProps) {
           {post.imageUrl ? (
             <img
               src={post.imageUrl}
-              alt={title}
+              alt={stegaClean(title)}
               style={{
                 width: "100%",
                 maxHeight: 480,

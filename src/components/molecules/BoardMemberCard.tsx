@@ -5,6 +5,7 @@ import { PhotoPlaceholder } from "@/components/atoms/PhotoPlaceholder";
 import { MonoLabel } from "@/components/atoms/MonoLabel";
 import { Display } from "@/components/atoms/Display";
 import { BodyText } from "@/components/atoms/BodyText";
+import { stegaClean } from "@sanity/client/stega";
 
 interface BoardMemberCardProps {
   name: string;
@@ -26,7 +27,7 @@ export function BoardMemberCard({
       {imageUrl ? (
         <img
           src={imageUrl}
-          alt={name}
+          alt={stegaClean(name)}
           style={{
             width: "100%",
             aspectRatio: "4/5",
