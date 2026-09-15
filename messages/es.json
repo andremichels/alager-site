@@ -159,9 +159,26 @@
     "newsletterPh": "Tu correo institucional",
     "newsletterCta": "Suscribirse",
     "privacy": "Política de privacidad",
-    "transparency": "Transparencia",
     "copy": "© 2026 ALAGER · Todos los derechos reservados",
     "hq": "Sede",
     "subscribed": "Suscrito ✓"
+  },
+  "privacy": {
+    "kicker": "Institucional",
+    "title": "Política de Privacidad",
+    "updated": "Última actualización: 15 de septiembre de 2026",
+    "intro": "ALAGER — Asociación Latinoamericana de Energía Renovable — trata su privacidad con seriedad. Esta política describe qué datos recopilamos, cómo los utilizamos y sus derechos sobre ellos.",
+    "collect": "Datos que recopilamos",
+    "collectBody": "Recopilamos solo los datos necesarios para operar la asociación: datos de identificación (nombre, correo institucional, organización y país) proporcionados voluntariamente en formularios de manifestación de interés y suscripción a boletines. También registramos datos de navegación anonimizados con fines estadísticos.",
+    "use": "Cómo utilizamos los datos",
+    "useBody": "Utilizamos sus datos para responder a manifestaciones de interés, enviar comunicaciones institucionales y el boletín regulatorio, y para administrar la relación asociativa. No utilizamos los datos para fines incompatibles con los informados.",
+    "share": "Compartición de datos",
+    "shareBody": "No vendemos ni compartimos sus datos personales con terceros con fines de marketing. Podemos compartir datos con proveedores de servicios (por ejemplo, infraestructura de correo) solo en la medida necesaria, bajo obligaciones de confidencialidad.",
+    "security": "Seguridad y retención",
+    "securityBody": "Adoptamos medidas técnicas y organizativas adecuadas para proteger sus datos contra accesos no autorizados, pérdida o alteración. Conservamos los datos solo el tiempo necesario para los fines de esta política o por obligación legal.",
+    "rights": "Sus derechos",
+    "rightsBody": "Puede solicitar acceso, corrección, portabilidad o eliminación de sus datos, además de revocar consentimientos en cualquier momento. Para ejercer estos derechos, utilice los canales de contacto a continuación.",
+    "contact": "Contacto",
+    "contactBody": "Para cualquier cuestión sobre privacidad o para ejercer sus derechos, escriba a secretaria@alager.org.br."
   }
 }

@@ -159,9 +159,26 @@
     "newsletterPh": "Your institutional e-mail",
     "newsletterCta": "Subscribe",
     "privacy": "Privacy policy",
-    "transparency": "Transparency",
     "copy": "© 2026 ALAGER · All rights reserved",
     "hq": "Headquarters",
     "subscribed": "Subscribed ✓"
+  },
+  "privacy": {
+    "kicker": "Institutional",
+    "title": "Privacy Policy",
+    "updated": "Last updated: September 15, 2026",
+    "intro": "ALAGER — Latin American Renewable Energy Association — takes your privacy seriously. This policy describes what data we collect, how we use it, and your rights over it.",
+    "collect": "Data we collect",
+    "collectBody": "We collect only the data necessary to operate the association: identification data (name, institutional email, organisation and country) provided voluntarily through interest forms and newsletter subscriptions. We also record anonymised browsing data for statistical purposes.",
+    "use": "How we use your data",
+    "useBody": "We use your data to respond to expressions of interest, send institutional communications and the regulatory newsletter, and to manage the membership relationship. We do not use the data for purposes incompatible with those disclosed.",
+    "share": "Data sharing",
+    "shareBody": "We do not sell or share your personal data with third parties for marketing purposes. We may share data with service providers (e.g., email infrastructure) only to the extent necessary, under confidentiality obligations.",
+    "security": "Security and retention",
+    "securityBody": "We adopt appropriate technical and organisational measures to protect your data against unauthorised access, loss or alteration. We retain data only for as long as necessary for the purposes of this policy or as required by law.",
+    "rights": "Your rights",
+    "rightsBody": "You may request access, correction, portability or deletion of your data, and withdraw consent at any time. To exercise these rights, use the contact channels below.",
+    "contact": "Contact",
+    "contactBody": "For any privacy questions or to exercise your rights, write to secretaria@alager.org.br."
   }
 }

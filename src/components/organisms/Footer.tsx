@@ -23,8 +23,7 @@ export function Footer({ locale }: FooterProps) {
   ];
 
   const instCol = [
-    { label: t("privacy"), href: "#" },
-    { label: t("transparency"), href: "#" },
+    { label: t("privacy"), href: `/${locale}/politica-de-privacidade` },
   ];
 
   const linkStyle: React.CSSProperties = {
@@ -76,7 +75,7 @@ export function Footer({ locale }: FooterProps) {
         </div>
         <div className="mobile-stack" style={{ marginTop: 64, paddingTop: 24, borderTop: "1px solid #ffffff20", display: "flex", justifyContent: "space-between" }}>
           <MonoLabel>{t("copy")}</MonoLabel>
-          <a href="#" style={{ color: "var(--color-muted)", textDecoration: "none" }}><MonoLabel>{t("privacy")}</MonoLabel></a>
+          <a href={`/${locale}/politica-de-privacidade`} style={{ color: "var(--color-muted)", textDecoration: "none" }}><MonoLabel>{t("privacy")}</MonoLabel></a>
         </div>
       </div>
     </footer>
