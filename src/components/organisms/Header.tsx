@@ -86,7 +86,7 @@ export function Header({ locale }: HeaderProps) {
         <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           {/* Logo */}
           <a href={`/${locale}`} style={{ display: "flex", alignItems: "center", textDecoration: "none", zIndex: 51 }}>
-            <Logo height={40} />
+            <Logo height={48} />
           </a>
 
           {/* Desktop nav */}
