@@ -60,6 +60,34 @@ npm start
 4. Crie um novo token com permissões apropriadas
 5. Copie o token para `.env.local`
 
+## 🎨 Sanity Canvas (escrita visual assistida por IA)
+
+O Canvas é o ambiente de escrita de conteúdo da Sanity. Como o Studio é **embutido** no Next.js (`/studio`), o schema precisa ser registrado/deployed pra ficar disponível no Canvas.
+
+### Pré-requisitos
+- App deployado (Vercel) com `/studio` acessível publicamente.
+- Token de deploy: crie em [sanity.io/manage](https://sanity.io/manage) → **API → Tokens**, com grant **`deployStudio`** (não precisa de escrita/leitura).
+
+### Registrar / atualizar o schema
+
+```bash
+npx sanity deploy --external
+```
+
+- Na primeira vez, use `--url https://SEU-DOMINIO.vercel.app/studio` (URL pública do Studio).
+- O `appId` já está fixado em `sanity.cli.ts` — próximos deploys não perguntam.
+- Rode a cada mudança de schema, ou deixe o Vercel rodar automaticamente (ver `vercel.json`).
+
+### Deploy automático no Vercel
+
+O `vercel.json` roda `next build && sanity deploy --external` a cada build. Isso exige a env **`SANITY_AUTH_TOKEN`** (token de deploy) configurada no projeto Vercel — sem ela, o build falha no passo do deploy do schema.
+
+### Bridge script
+Já injetado em `src/app/studio/layout.tsx` — não precisa mexer.
+
+### Ajustes de schema (`options.canvasApp`)
+Campos internos (`order`, `key`, `section`, `page`, `code`) estão com `canvasApp.exclude`; `post.excerpt` e `post.cat` têm `purpose`. Edite em `sanity/schemas/*`.
+
 ## 🔐 Segurança
 
 ⚠️ **NUNCA commite `.env.local` no repositório!**
