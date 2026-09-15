@@ -16,6 +16,7 @@ export const membershipTier = defineType({
           { value: "corporate", title: "Corporativo" },
           { value: "academic", title: "Acadêmica" },
         ],
+        canvasApp: { exclude: true },
       },
       validation: (rule) => rule.required(),
     }),
@@ -28,7 +29,7 @@ export const membershipTier = defineType({
       title: "Benefícios",
       of: [{ type: "localeString" }],
     }),
-    defineField({ name: "order", type: "number", title: "Ordem" }),
+    defineField({ name: "order", type: "number", title: "Ordem", options: { canvasApp: { exclude: true } } }),
   ],
   orderings: [{ name: "order", title: "Ordem", by: [{ field: "order", direction: "asc" }] }],
   preview: {

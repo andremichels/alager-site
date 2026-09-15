@@ -16,6 +16,7 @@ export const pageHeader = defineType({
           { value: "energy", title: "Energias Renováveis" },
           { value: "blog", title: "Blog" },
         ],
+        canvasApp: { exclude: true },
       },
       validation: (rule) => rule.required(),
     }),

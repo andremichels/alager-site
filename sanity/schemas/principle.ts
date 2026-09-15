@@ -8,7 +8,7 @@ export const principle = defineType({
   fields: [
     defineField({ name: "t", type: "localeString", title: "Título" }),
     defineField({ name: "b", type: "localeString", title: "Corpo" }),
-    defineField({ name: "order", type: "number", title: "Ordem" }),
+    defineField({ name: "order", type: "number", title: "Ordem", options: { canvasApp: { exclude: true } } }),
   ],
   orderings: [{ name: "order", title: "Ordem", by: [{ field: "order", direction: "asc" }] }],
   preview: {

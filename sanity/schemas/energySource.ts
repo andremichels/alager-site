@@ -18,11 +18,12 @@ export const energySource = defineType({
           { value: "Hídrica", title: "Hídrica" },
           { value: "Hidrogênio", title: "Hidrogênio" },
         ],
+        canvasApp: { exclude: true },
       },
       validation: (rule) => rule.required(),
     }),
     defineField({ name: "name", type: "localeString", title: "Nome (aba)" }),
-    defineField({ name: "order", type: "number", title: "Ordem" }),
+    defineField({ name: "order", type: "number", title: "Ordem", options: { canvasApp: { exclude: true } } }),
     defineField({ name: "body", type: "localeString", title: "Corpo do texto" }),
     defineField({ name: "focus", type: "localeString", title: "Foco ALAGER" }),
     defineField({

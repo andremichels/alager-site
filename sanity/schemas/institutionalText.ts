@@ -17,6 +17,7 @@ export const institutionalText = defineType({
           { value: "about-vision", title: "Quem Somos — Visão" },
           { value: "about-governance", title: "Quem Somos — Governança" },
         ],
+        canvasApp: { exclude: true },
       },
       validation: (rule) => rule.required(),
     }),

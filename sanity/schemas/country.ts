@@ -10,6 +10,7 @@ export const country = defineType({
       name: "code",
       type: "string",
       title: "Código ISO (BR, AR…)",
+      options: { canvasApp: { exclude: true } },
       validation: (rule) => rule.required(),
     }),
     defineField({ name: "name", type: "localeString", title: "Nome" }),
