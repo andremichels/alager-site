@@ -6,12 +6,12 @@ The site is published in three languages: Portuguese (`/pt`, default), Spanish (
 
 ## Core pages
 
-- [Home](https://alager.org.br/pt): overview, mission pillars, member countries, latest news and membership CTA.
-- [Quem Somos / About](https://alager.org.br/pt/quem-somos): mission, vision, governance, board of directors, principles and timeline.
-- [Energias Renováveis / Renewable Energy](https://alager.org.br/pt/energias-renovaveis): the renewable-energy landscape — wind, solar, hydro and more, with key data per source.
-- [Associe-se / Become a Member](https://alager.org.br/pt/associe-se): membership categories and how to join.
-- [Blog](https://alager.org.br/pt/blog): analyses, positions and the regulatory calendar for renewable energy in Latin America.
-- [Política de Privacidade / Privacy Policy](https://alager.org.br/pt/politica-de-privacidade): how ALAGER collects, uses and protects personal data.
+- [Home](https://www.alager.org.br/pt): overview, mission pillars, member countries, latest news and membership CTA.
+- [Quem Somos / About](https://www.alager.org.br/pt/quem-somos): mission, vision, governance, board of directors, principles and timeline.
+- [Energias Renováveis / Renewable Energy](https://www.alager.org.br/pt/energias-renovaveis): the renewable-energy landscape — wind, solar, hydro and more, with key data per source.
+- [Associe-se / Become a Member](https://www.alager.org.br/pt/associe-se): membership categories and how to join.
+- [Blog](https://www.alager.org.br/pt/blog): analyses, positions and the regulatory calendar for renewable energy in Latin America.
+- [Política de Privacidade / Privacy Policy](https://www.alager.org.br/pt/politica-de-privacidade): how ALAGER collects, uses and protects personal data.
 
 ## About ALAGER
 

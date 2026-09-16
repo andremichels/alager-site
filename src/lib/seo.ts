@@ -4,7 +4,7 @@
 import type { Metadata } from "next";
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://alager.org.br";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.alager.org.br";
 export const SITE_NAME = "ALAGER";
 export const LOCALES = ["pt", "es", "en"] as const;
 export const DEFAULT_LOCALE = "pt";
