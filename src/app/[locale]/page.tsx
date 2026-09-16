@@ -1,7 +1,18 @@
 // Alager Site — Home page (fetches data, passes to client)
+import type { Metadata } from "next";
 import { getPosts, getHomeSettings, getCountries } from "@/lib/sanity";
 import { COUNTRIES } from "@/data/countries";
 import { HomeClient } from "./HomeClient";
+import { buildPageMetadata } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata(locale, "");
+}
 
 export default async function HomePage({
   params,

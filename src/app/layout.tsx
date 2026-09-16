@@ -2,6 +2,13 @@
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Newsreader, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import {
+  SITE_URL,
+  SITE_NAME,
+  OG_IMAGE,
+  siteTitle,
+  defaultDescription,
+} from "@/lib/seo";
 import "@/app/globals.css";
 
 const newsreader = Newsreader({
@@ -24,12 +31,60 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "ALAGER — Associação Latino-Americana de Energia Renovável",
-    template: "%s — ALAGER",
+    default: siteTitle.pt,
+    template: `%s — ${SITE_NAME}`,
   },
-  description:
-    "A ALAGER reúne associações, geradoras e instituições da Argentina ao México para articular políticas públicas e defender o investimento em energias renováveis.",
+  description: defaultDescription.pt,
+  applicationName: SITE_NAME,
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  keywords: [
+    "energias renováveis",
+    "energia renovável",
+    "América Latina",
+    "transição energética",
+    "associação",
+    "política pública",
+    "regulação",
+    "eólica",
+    "solar",
+    "hídrica",
+    "renewable energy",
+    "Latin America",
+    "energy transition",
+  ],
+  openGraph: {
+    title: siteTitle.pt,
+    description: defaultDescription.pt,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "pt_BR",
+    type: "website",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle.pt,
+    description: defaultDescription.pt,
+    images: [OG_IMAGE],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default async function RootLayout({

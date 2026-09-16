@@ -1,8 +1,20 @@
 // Alager Site — Política de Privacidade (conteúdo estático)
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Kicker } from "@/components/atoms/Kicker";
 import { Display } from "@/components/atoms/Display";
 import { BodyText } from "@/components/atoms/BodyText";
+import { buildPageMetadata, pageMeta } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const m = pageMeta.privacy[locale] ?? pageMeta.privacy.pt;
+  return buildPageMetadata(locale, "politica-de-privacidade", m);
+}
 
 export default async function PrivacyPage({
   params,

@@ -1,4 +1,5 @@
 // Alager Site — Quem Somos (fetches data, passes to client)
+import type { Metadata } from "next";
 import {
   getBoardMembers,
   getTimelineEntries,
@@ -7,6 +8,17 @@ import {
   getPageHeader,
 } from "@/lib/sanity";
 import { QuemSomosClient } from "./QuemSomosClient";
+import { buildPageMetadata, pageMeta } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const m = pageMeta.about[locale] ?? pageMeta.about.pt;
+  return buildPageMetadata(locale, "quem-somos", m);
+}
 
 export default async function QuemSomosPage({
   params,

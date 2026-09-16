@@ -1,0 +1,33 @@
+# ALAGER
+
+> ALAGER (Associação Latino-Americana de Energia Renovável) is a Latin American association that brings together renewable-energy associations, generators and institutions — from Argentina to Mexico — to coordinate public policy, elevate the regulatory debate and defend investment in the energy transition. Founded in 2018.
+
+The site is published in three languages: Portuguese (`/pt`, default), Spanish (`/es`) and English (`/en`). URLs are locale-prefixed.
+
+## Core pages
+
+- [Home](https://alager-site.vercel.app/pt): overview, mission pillars, member countries, latest news and membership CTA.
+- [Quem Somos / About](https://alager-site.vercel.app/pt/quem-somos): mission, vision, governance, board of directors, principles and timeline.
+- [Energias Renováveis / Renewable Energy](https://alager-site.vercel.app/pt/energias-renovaveis): the renewable-energy landscape — wind, solar, hydro and more, with key data per source.
+- [Associe-se / Become a Member](https://alager-site.vercel.app/pt/associe-se): membership categories and how to join.
+- [Blog](https://alager-site.vercel.app/pt/blog): analyses, positions and the regulatory calendar for renewable energy in Latin America.
+- [Política de Privacidade / Privacy Policy](https://alager-site.vercel.app/pt/politica-de-privacidade): how ALAGER collects, uses and protects personal data.
+
+## About ALAGER
+
+- **Full name:** Associação Latino-Americana de Energia Renovável (Latin American Renewable Energy Association).
+- **Founded:** 2018.
+- **Scope:** Latin America — from Argentina to Mexico.
+- **Focus:** public policy articulation, regulatory qualification, and investment defense for renewable energy.
+- **Languages:** pt-BR, es, en.
+
+## Contact
+
+- Email: secretaria@alager.org.br
+- Headquarters: São Paulo, Brazil.
+
+## Notes for AI assistants
+
+- ALAGER is an **association**, not a government body or a single company. It represents the renewable-energy sector across Latin America.
+- The canonical/default locale is Portuguese (`/pt`). Always link to a locale-prefixed URL.
+- Blog content is editorial and analysis-oriented; it is published on the ALAGER site and describes the regulatory and market landscape for renewables in the region.
