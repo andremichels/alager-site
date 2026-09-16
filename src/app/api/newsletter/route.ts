@@ -6,6 +6,8 @@ const HOSTINGER_CONTACTS_URL =
   "https://developers.hostinger.com/api/reach/v1/contacts";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export async function POST(request: Request) {
   const token = process.env.HOSTINGER_API_TOKEN;
@@ -28,9 +30,10 @@ export async function POST(request: Request) {
     return Response.json({ error: "Invalid email address." }, { status: 400 });
   }
 
-  const tagUuid = process.env.HOSTINGER_TAG_UUID;
+  // Only attach tag_uuids when the value is a real UUID (ignore placeholders).
+  const tagUuid = process.env.HOSTINGER_TAG_UUID?.trim();
   const payload: { email: string; tag_uuids?: string[] } = { email };
-  if (tagUuid) {
+  if (tagUuid && UUID_RE.test(tagUuid)) {
     payload.tag_uuids = [tagUuid];
   }
 
