@@ -34,8 +34,9 @@ export async function POST(request: Request) {
     payload.tag_uuids = [tagUuid];
   }
 
+  let upstream: Response;
   try {
-    const upstream = await fetch(HOSTINGER_CONTACTS_URL, {
+    upstream = await fetch(HOSTINGER_CONTACTS_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,21 +44,26 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify(payload),
     });
-
-    if (upstream.ok) {
-      return Response.json({ ok: true });
-    }
-
-    // 401 → invalid/missing token (our config); 422 → payload rejected (e.g. duplicate).
-    const status = upstream.status === 401 ? 502 : 400;
-    return Response.json(
-      { error: `Hostinger Reach rejected the request (${upstream.status}).` },
-      { status },
-    );
   } catch {
     return Response.json(
       { error: "Failed to reach Hostinger Reach." },
       { status: 502 },
     );
   }
+
+  if (upstream.ok) {
+    return Response.json({ ok: true });
+  }
+
+  const upstreamBody = await upstream.text();
+  console.error(`[newsletter] Hostinger ${upstream.status}: ${upstreamBody}`);
+
+  const status = upstream.status === 401 ? 502 : 400;
+  return Response.json(
+    {
+      error: `Hostinger Reach rejected the request (${upstream.status}).`,
+      detail: upstreamBody.slice(0, 500),
+    },
+    { status },
+  );
 }
