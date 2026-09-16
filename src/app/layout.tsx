@@ -1,5 +1,5 @@
 // Alager Site — Root layout: owns <html>/<body>, fonts and metadata
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { getLocale } from "next-intl/server";
 import { Newsreader, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import {
@@ -30,6 +30,12 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0a3d2e",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -55,6 +61,7 @@ export const metadata: Metadata = {
     "Latin America",
     "energy transition",
   ],
+  manifest: "/manifest.webmanifest",
   openGraph: {
     title: siteTitle.pt,
     description: defaultDescription.pt,
@@ -82,7 +89,11 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/icon.svg",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
     apple: "/apple-icon.png",
   },
 };
