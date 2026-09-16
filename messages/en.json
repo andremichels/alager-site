@@ -161,7 +161,8 @@
     "privacy": "Privacy policy",
     "copy": "© 2026 ALAGER · All rights reserved",
     "hq": "Headquarters",
-    "subscribed": "Subscribed ✓"
+    "subscribed": "Subscribed ✓",
+    "newsletterError": "Could not subscribe. Please try again."
   },
   "privacy": {
     "kicker": "Institutional",

@@ -161,7 +161,8 @@
     "privacy": "Política de privacidade",
     "copy": "© 2026 ALAGER · Todos os direitos reservados",
     "hq": "Sede",
-    "subscribed": "Inscrito ✓"
+    "subscribed": "Inscrito ✓",
+    "newsletterError": "Não foi possível assinar. Tente novamente."
   },
   "privacy": {
     "kicker": "Institucional",
