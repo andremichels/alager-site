@@ -86,6 +86,51 @@ export interface PageHeader {
   lead?: Record<string, string>;
 }
 
+export interface Topic {
+  _id: string;
+  title: Record<string, string>;
+  slug?: { current: string };
+  order?: number;
+}
+
+export interface NewsItem {
+  _id: string;
+  title: Record<string, string>;
+  summary?: Record<string, string>;
+  outlet?: string;
+  url?: string;
+  date?: string;
+  topic?: { _id: string; title: Record<string, string>; slug?: { current: string } } | null;
+  featured?: boolean;
+  sharedBy?: string;
+}
+
+export interface EventItem {
+  _id: string;
+  name: Record<string, string>;
+  dateStart?: string;
+  dateEnd?: string;
+  location?: string;
+  url?: string;
+  description?: Record<string, string>;
+  imageUrl?: string;
+  origin?: string;
+  topic?: { _id: string; title: Record<string, string>; slug?: { current: string } } | null;
+}
+
+export interface SectorMetric {
+  label?: Record<string, string>;
+  value?: string;
+  source?: string;
+  date?: string;
+}
+
+export interface SectorData {
+  kicker?: Record<string, string>;
+  title?: Record<string, string>;
+  metrics?: SectorMetric[];
+}
+
 // ═══════════════════════════════════════════════
 // Fetch functions (via sanityFetch — stega + draft mode aware)
 // ═══════════════════════════════════════════════
@@ -236,4 +281,48 @@ export async function getPageHeader(page: string): Promise<PageHeader | null> {
     ...(await liveOptions()),
   });
   return (data as PageHeader | null) ?? null;
+}
+
+export async function getTopics(): Promise<Topic[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "topic"] | order(order asc) {
+      _id, title, "slug": slug { current }, order
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as Topic[];
+}
+
+export async function getNewsItems(): Promise<NewsItem[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "newsItem"] | order(date desc) {
+      _id, title, summary, outlet, url, date, featured,
+      "topic": topic->{ _id, title, "slug": slug { current } }
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as NewsItem[];
+}
+
+export async function getEvents(): Promise<EventItem[]> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "event"] | order(dateStart asc) {
+      _id, name, dateStart, dateEnd, location, url, description, origin,
+      "imageUrl": image.asset->url,
+      "topic": topic->{ _id, title, "slug": slug { current } }
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data ?? []) as EventItem[];
+}
+
+export async function getSectorData(): Promise<SectorData | null> {
+  const { data } = await sanityFetch({
+    query: `*[_type == "sectorData"][0] {
+      kicker, title,
+      "metrics": metrics[] { label, value, source, date }
+    }`,
+    ...(await liveOptions()),
+  });
+  return (data as SectorData | null) ?? null;
 }

@@ -111,6 +111,40 @@ export const pageMeta: Record<
       description: "How ALAGER collects, uses and protects your data.",
     },
   },
+  noticias: {
+    pt: {
+      title: "Notícias",
+      description:
+        "Curadoria das principais notícias e movimentos do setor de energias renováveis na América Latina, com link para a fonte original.",
+    },
+    es: {
+      title: "Noticias",
+      description:
+        "Curaduría de las principales noticias y movimientos del sector de energías renovables en América Latina, con enlace a la fuente original.",
+    },
+    en: {
+      title: "News",
+      description:
+        "A curated roundup of the renewable-energy sector's key news and developments across Latin America, linking to the original source.",
+    },
+  },
+  agenda: {
+    pt: {
+      title: "Agenda",
+      description:
+        "Conferências, leilões e encontros relevantes para a energia renovável na América Latina.",
+    },
+    es: {
+      title: "Agenda",
+      description:
+        "Conferencias, subastas y encuentros relevantes para la energía renovable en América Latina.",
+    },
+    en: {
+      title: "Agenda",
+      description:
+        "Conferences, auctions and gatherings relevant to renewable energy across Latin America.",
+    },
+  },
 };
 
 // Build canonical + hreflang alternates for a given locale and path ("" = home).

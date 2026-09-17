@@ -12,6 +12,11 @@ import { homeSettings } from "./homeSettings";
 import { membershipTier } from "./membershipTier";
 import { principle } from "./principle";
 import { pageHeader } from "./pageHeader";
+import { topic } from "./topic";
+import { newsItem } from "./newsItem";
+import { event } from "./event";
+import { sectorMetric } from "./sectorMetric";
+import { sectorData } from "./sectorData";
 
 export const schemaTypes = [
   localeString,
@@ -27,4 +32,9 @@ export const schemaTypes = [
   membershipTier,
   principle,
   pageHeader,
+  topic,
+  newsItem,
+  event,
+  sectorMetric,
+  sectorData,
 ];

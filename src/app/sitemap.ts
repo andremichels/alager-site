@@ -11,6 +11,8 @@ const STATIC_PATHS: { path: string; priority: number; changeFrequency: string }[
   { path: "energias-renovaveis", priority: 0.8, changeFrequency: "monthly" },
   { path: "associe-se", priority: 0.8, changeFrequency: "monthly" },
   { path: "blog", priority: 0.7, changeFrequency: "weekly" },
+  { path: "noticias", priority: 0.7, changeFrequency: "weekly" },
+  { path: "agenda", priority: 0.6, changeFrequency: "weekly" },
   { path: "politica-de-privacidade", priority: 0.2, changeFrequency: "yearly" },
 ];
 

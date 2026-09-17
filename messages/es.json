@@ -4,6 +4,8 @@
     "about": "Quiénes Somos",
     "energy": "Energías Renovables",
     "blog": "Blog",
+    "news": "Noticias",
+    "agenda": "Agenda",
     "join": "Asóciate",
     "cta": "Hacerse asociado",
     "menuOpen": "Abrir menú",
@@ -163,6 +165,23 @@
     "hq": "Sede",
     "subscribed": "Suscrito ✓",
     "newsletterError": "No se pudo suscribir. Inténtalo de nuevo."
+  },
+  "noticias": {
+    "kicker": "Radar del sector",
+    "headline": "Lo que está moviendo la energía renovable en América Latina",
+    "lead": "Curaduría de las principales noticias y movimientos del sector, resumidas por ALAGER con enlace a la fuente original.",
+    "filterAll": "Todos los temas",
+    "readSource": "Leer en la fuente",
+    "empty": "Aún no hay noticias publicadas."
+  },
+  "agenda": {
+    "kicker": "Agenda",
+    "headline": "Próximos eventos del sector",
+    "lead": "Conferencias, subastas y encuentros relevantes para la energía renovable en América Latina.",
+    "register": "Inscribirse",
+    "when": "Cuándo",
+    "where": "Dónde",
+    "empty": "No hay eventos programados por el momento."
   },
   "privacy": {
     "kicker": "Institucional",

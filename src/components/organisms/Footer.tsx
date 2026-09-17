@@ -18,6 +18,8 @@ export function Footer({ locale }: FooterProps) {
     { label: tNav("home"), href: `/${locale}` },
     { label: tNav("about"), href: `/${locale}/quem-somos` },
     { label: tNav("energy"), href: `/${locale}/energias-renovaveis` },
+    { label: tNav("news"), href: `/${locale}/noticias` },
+    { label: tNav("agenda"), href: `/${locale}/agenda` },
     { label: tNav("blog"), href: `/${locale}/blog` },
     { label: tNav("join"), href: `/${locale}/associe-se` },
   ];

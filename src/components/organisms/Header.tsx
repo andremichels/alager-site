@@ -43,6 +43,8 @@ export function Header({ locale }: HeaderProps) {
     { href: `/${locale}`, label: t("home"), id: "home" },
     { href: `/${locale}/quem-somos`, label: t("about"), id: "about" },
     { href: `/${locale}/energias-renovaveis`, label: t("energy"), id: "energy" },
+    { href: `/${locale}/noticias`, label: t("news"), id: "news" },
+    { href: `/${locale}/agenda`, label: t("agenda"), id: "agenda" },
     { href: `/${locale}/blog`, label: t("blog"), id: "blog" },
     { href: `/${locale}/associe-se`, label: t("join"), id: "join" },
   ];

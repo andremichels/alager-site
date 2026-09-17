@@ -4,6 +4,8 @@
     "about": "About",
     "energy": "Renewables",
     "blog": "Blog",
+    "news": "News",
+    "agenda": "Agenda",
     "join": "Join",
     "cta": "Become a member",
     "menuOpen": "Open menu",
@@ -163,6 +165,23 @@
     "hq": "Headquarters",
     "subscribed": "Subscribed ✓",
     "newsletterError": "Could not subscribe. Please try again."
+  },
+  "noticias": {
+    "kicker": "Sector radar",
+    "headline": "What's moving renewable energy across Latin America",
+    "lead": "A curated roundup of the sector's key news and developments, summarized by ALAGER with a link to the original source.",
+    "filterAll": "All topics",
+    "readSource": "Read at source",
+    "empty": "No news published yet."
+  },
+  "agenda": {
+    "kicker": "Agenda",
+    "headline": "Upcoming sector events",
+    "lead": "Conferences, auctions and gatherings relevant to renewable energy across Latin America.",
+    "register": "Register",
+    "when": "When",
+    "where": "Where",
+    "empty": "No events scheduled at the moment."
   },
   "privacy": {
     "kicker": "Institutional",
