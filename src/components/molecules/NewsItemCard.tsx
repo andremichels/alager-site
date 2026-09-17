@@ -10,6 +10,8 @@ interface NewsItemCardProps {
   meta?: string;
   url?: string;
   readSourceLabel: string;
+  featured?: boolean;
+  featuredLabel?: string;
 }
 
 const cardStyle: React.CSSProperties = {
@@ -28,9 +30,27 @@ export function NewsItemCard({
   meta,
   url,
   readSourceLabel,
+  featured,
+  featuredLabel,
 }: NewsItemCardProps) {
   const inner = (
     <>
+      {featured && (
+        <span
+          className="mono"
+          style={{
+            alignSelf: "flex-start",
+            background: "var(--color-gold)",
+            color: "var(--color-green-deep)",
+            padding: "4px 12px",
+            fontSize: 10,
+            marginBottom: 14,
+          }}
+        >
+          ★ {featuredLabel}
+        </span>
+      )}
+
       <div
         style={{
           display: "flex",

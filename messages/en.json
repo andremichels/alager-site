@@ -172,6 +172,7 @@
     "lead": "A curated roundup of the sector's key news and developments, summarized by ALAGER with a link to the original source.",
     "filterAll": "All topics",
     "readSource": "Read at source",
+    "featured": "Featured",
     "empty": "No news published yet.",
     "pageOf": "Page {page} of {total}",
     "items": "news items"
@@ -181,6 +182,7 @@
     "headline": "Upcoming sector events",
     "lead": "Conferences, auctions and gatherings relevant to renewable energy across Latin America.",
     "register": "Register",
+    "featured": "Featured",
     "when": "When",
     "where": "Where",
     "empty": "No events scheduled at the moment.",

@@ -307,7 +307,7 @@ export async function getNewsItems(): Promise<NewsItem[]> {
 
 export async function getEvents(): Promise<EventItem[]> {
   const { data } = await sanityFetch({
-    query: `*[_type == "event"] | order(dateStart asc) {
+    query: `*[_type == "event"] | order(dateStart desc) {
       _id, name, dateStart, dateEnd, location, url, description, origin, featured,
       "imageUrl": image.asset->url,
       "topic": topic->{ _id, title, "slug": slug { current } }

@@ -172,6 +172,7 @@
     "lead": "Curadoria das principais notícias e movimentos do setor, resumidas pela ALAGER com link para a fonte original.",
     "filterAll": "Todos os temas",
     "readSource": "Ler na fonte",
+    "featured": "Destaque",
     "empty": "Nenhuma notícia publicada ainda.",
     "pageOf": "Página {page} de {total}",
     "items": "notícias"
@@ -181,6 +182,7 @@
     "headline": "Próximos eventos do setor",
     "lead": "Conferências, leilões e encontros relevantes para a energia renovável na América Latina.",
     "register": "Inscrever-se",
+    "featured": "Destaque",
     "when": "Quando",
     "where": "Onde",
     "empty": "Nenhum evento programado no momento.",

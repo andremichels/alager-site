@@ -79,6 +79,8 @@ export function AgendaClient({ locale, events }: AgendaClientProps) {
                     meta={[range(ev), ev.location].filter(Boolean).join(" · ") || undefined}
                     url={ev.url}
                     registerLabel={t("register")}
+                    featured={ev.featured}
+                    featuredLabel={t("featured")}
                   />
                 ))}
               </div>

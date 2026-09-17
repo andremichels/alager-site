@@ -9,6 +9,8 @@ interface EventCardProps {
   meta?: string;
   url?: string;
   registerLabel: string;
+  featured?: boolean;
+  featuredLabel?: string;
 }
 
 const cardStyle: React.CSSProperties = {
@@ -20,9 +22,33 @@ const cardStyle: React.CSSProperties = {
   color: "inherit",
 };
 
-export function EventCard({ name, description, meta, url, registerLabel }: EventCardProps) {
+export function EventCard({
+  name,
+  description,
+  meta,
+  url,
+  registerLabel,
+  featured,
+  featuredLabel,
+}: EventCardProps) {
   const inner = (
     <>
+      {featured && (
+        <span
+          className="mono"
+          style={{
+            alignSelf: "flex-start",
+            background: "var(--color-gold)",
+            color: "var(--color-green-deep)",
+            padding: "4px 12px",
+            fontSize: 10,
+            marginBottom: 14,
+          }}
+        >
+          ★ {featuredLabel}
+        </span>
+      )}
+
       {meta ? <MonoLabel>{meta}</MonoLabel> : null}
 
       <Display variant="h3" style={{ marginTop: 16 }}>

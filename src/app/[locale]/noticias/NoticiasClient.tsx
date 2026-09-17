@@ -102,6 +102,8 @@ export function NoticiasClient({ locale, items, topics }: NoticiasClientProps) {
                     }
                     url={item.url}
                     readSourceLabel={t("readSource")}
+                    featured={item.featured}
+                    featuredLabel={t("featured")}
                   />
                 ))}
               </div>
