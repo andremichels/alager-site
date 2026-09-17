@@ -1,12 +1,16 @@
-// Alager Site — Agenda client (cards em grade)
+// Alager Site — Agenda client (cards em grade + paginação)
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Kicker } from "@/components/atoms/Kicker";
 import { Display } from "@/components/atoms/Display";
 import { BodyText } from "@/components/atoms/BodyText";
 import { EventCard } from "@/components/molecules/EventCard";
+import { Pagination } from "@/components/molecules/Pagination";
 import type { EventItem } from "@/lib/sanity";
+
+const PER_PAGE = 6;
 
 interface AgendaClientProps {
   locale: string;
@@ -27,6 +31,16 @@ export function AgendaClient({ locale, events }: AgendaClientProps) {
   const t = useTranslations("agenda");
   // PT-only por enquanto: cai pra pt quando es/en não estiverem traduzidos.
   const L = (v?: Record<string, string>) => v?.[locale] || v?.pt || "";
+  const [page, setPage] = useState(1);
+
+  const totalPages = Math.ceil(events.length / PER_PAGE);
+  const safePage = Math.min(page, Math.max(1, totalPages));
+  const paged = events.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
+
+  const caption =
+    totalPages > 1
+      ? `${t("pageOf", { page: safePage, total: totalPages })} · ${events.length} ${t("items")}`
+      : undefined;
 
   const range = (ev: EventItem) => {
     const start = ev.dateStart ? formatDate(ev.dateStart, locale) : null;
@@ -55,18 +69,26 @@ export function AgendaClient({ locale, events }: AgendaClientProps) {
               {t("empty")}
             </p>
           ) : (
-            <div className="grid-3" style={{ gap: 32 }}>
-              {events.map((ev) => (
-                <EventCard
-                  key={ev._id}
-                  name={L(ev.name)}
-                  description={L(ev.description) || undefined}
-                  meta={[range(ev), ev.location].filter(Boolean).join(" · ") || undefined}
-                  url={ev.url}
-                  registerLabel={t("register")}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid-3" style={{ gap: 32 }}>
+                {paged.map((ev) => (
+                  <EventCard
+                    key={ev._id}
+                    name={L(ev.name)}
+                    description={L(ev.description) || undefined}
+                    meta={[range(ev), ev.location].filter(Boolean).join(" · ") || undefined}
+                    url={ev.url}
+                    registerLabel={t("register")}
+                  />
+                ))}
+              </div>
+              <Pagination
+                page={safePage}
+                totalPages={totalPages}
+                onChange={setPage}
+                caption={caption}
+              />
+            </>
           )}
         </div>
       </section>

@@ -13,3 +13,4 @@ export { NewsletterForm } from "./NewsletterForm";
 export { SearchInput } from "./SearchInput";
 export { NewsItemCard } from "./NewsItemCard";
 export { EventCard } from "./EventCard";
+export { Pagination } from "./Pagination";

@@ -172,7 +172,9 @@
     "lead": "Curadoria das principais notícias e movimentos do setor, resumidas pela ALAGER com link para a fonte original.",
     "filterAll": "Todos os temas",
     "readSource": "Ler na fonte",
-    "empty": "Nenhuma notícia publicada ainda."
+    "empty": "Nenhuma notícia publicada ainda.",
+    "pageOf": "Página {page} de {total}",
+    "items": "notícias"
   },
   "agenda": {
     "kicker": "Agenda",
@@ -181,7 +183,9 @@
     "register": "Inscrever-se",
     "when": "Quando",
     "where": "Onde",
-    "empty": "Nenhum evento programado no momento."
+    "empty": "Nenhum evento programado no momento.",
+    "pageOf": "Página {page} de {total}",
+    "items": "eventos"
   },
   "privacy": {
     "kicker": "Institucional",

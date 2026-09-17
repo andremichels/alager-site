@@ -1,4 +1,4 @@
-// Alager Site — Notícias / Radar client (cards em grade + filtro por tema)
+// Alager Site — Notícias / Radar client (cards em grade + filtro por tema + paginação)
 "use client";
 
 import { useState, useMemo } from "react";
@@ -8,7 +8,10 @@ import { Display } from "@/components/atoms/Display";
 import { BodyText } from "@/components/atoms/BodyText";
 import { Tag } from "@/components/atoms/Tag";
 import { NewsItemCard } from "@/components/molecules/NewsItemCard";
+import { Pagination } from "@/components/molecules/Pagination";
 import type { NewsItem, Topic } from "@/lib/sanity";
+
+const PER_PAGE = 6;
 
 interface NoticiasClientProps {
   locale: string;
@@ -31,11 +34,26 @@ export function NoticiasClient({ locale, items, topics }: NoticiasClientProps) {
   // PT-only por enquanto: cai pra pt quando es/en não estiverem traduzidos.
   const L = (v?: Record<string, string>) => v?.[locale] || v?.pt || "";
   const [active, setActive] = useState<string>("all");
+  const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
     if (active === "all") return items;
     return items.filter((i) => i.topic?._id === active);
   }, [items, active]);
+
+  const totalPages = Math.ceil(filtered.length / PER_PAGE);
+  const safePage = Math.min(page, Math.max(1, totalPages));
+  const paged = filtered.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
+
+  const caption =
+    totalPages > 1
+      ? `${t("pageOf", { page: safePage, total: totalPages })} · ${filtered.length} ${t("items")}`
+      : undefined;
+
+  const selectTopic = (id: string) => {
+    setActive(id);
+    setPage(1);
+  };
 
   return (
     <main>
@@ -50,11 +68,11 @@ export function NoticiasClient({ locale, items, topics }: NoticiasClientProps) {
           </BodyText>
 
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 40 }}>
-            <Tag active={active === "all"} onClick={() => setActive("all")}>
+            <Tag active={active === "all"} onClick={() => selectTopic("all")}>
               {t("filterAll")}
             </Tag>
             {topics.map((tp) => (
-              <Tag key={tp._id} active={active === tp._id} onClick={() => setActive(tp._id)}>
+              <Tag key={tp._id} active={active === tp._id} onClick={() => selectTopic(tp._id)}>
                 {L(tp.title)}
               </Tag>
             ))}
@@ -69,23 +87,31 @@ export function NoticiasClient({ locale, items, topics }: NoticiasClientProps) {
               {t("empty")}
             </p>
           ) : (
-            <div className="grid-3" style={{ gap: 32 }}>
-              {filtered.map((item) => (
-                <NewsItemCard
-                  key={item._id}
-                  title={L(item.title)}
-                  summary={L(item.summary) || undefined}
-                  topicLabel={item.topic ? L(item.topic.title) : undefined}
-                  meta={
-                    [item.outlet, item.date ? formatDate(item.date, locale) : null]
-                      .filter(Boolean)
-                      .join(" · ") || undefined
-                  }
-                  url={item.url}
-                  readSourceLabel={t("readSource")}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid-3" style={{ gap: 32 }}>
+                {paged.map((item) => (
+                  <NewsItemCard
+                    key={item._id}
+                    title={L(item.title)}
+                    summary={L(item.summary) || undefined}
+                    topicLabel={item.topic ? L(item.topic.title) : undefined}
+                    meta={
+                      [item.outlet, item.date ? formatDate(item.date, locale) : null]
+                        .filter(Boolean)
+                        .join(" · ") || undefined
+                    }
+                    url={item.url}
+                    readSourceLabel={t("readSource")}
+                  />
+                ))}
+              </div>
+              <Pagination
+                page={safePage}
+                totalPages={totalPages}
+                onChange={setPage}
+                caption={caption}
+              />
+            </>
           )}
         </div>
       </section>

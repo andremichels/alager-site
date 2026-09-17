@@ -172,7 +172,9 @@
     "lead": "A curated roundup of the sector's key news and developments, summarized by ALAGER with a link to the original source.",
     "filterAll": "All topics",
     "readSource": "Read at source",
-    "empty": "No news published yet."
+    "empty": "No news published yet.",
+    "pageOf": "Page {page} of {total}",
+    "items": "news items"
   },
   "agenda": {
     "kicker": "Agenda",
@@ -181,7 +183,9 @@
     "register": "Register",
     "when": "When",
     "where": "Where",
-    "empty": "No events scheduled at the moment."
+    "empty": "No events scheduled at the moment.",
+    "pageOf": "Page {page} of {total}",
+    "items": "events"
   },
   "privacy": {
     "kicker": "Institutional",
