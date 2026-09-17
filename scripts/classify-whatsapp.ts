@@ -41,6 +41,7 @@ interface NewsDoc {
   url: string;
   date: string;
   featured: boolean;
+  topic?: string; // slug do tema (preenchido pelo enriquecimento LLM)
 }
 
 interface EventDoc {
@@ -382,6 +383,93 @@ function toEventDoc(c: Classified): EventDoc {
   return { name: c.title, description: "", dateStart: c.date, url: c.url, origin: "external" };
 }
 
+// ── Enriquecimento por LLM (resumo + tema) ────────────────────────────
+const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages";
+const TOPIC_SLUGS = [
+  "armazenamento",
+  "biogas-biometano",
+  "hidrogenio-verde",
+  "transmissao-distribuicao",
+  "regulacao-politica",
+  "mercado-investimentos",
+  "solar",
+  "eolica",
+  "internacional",
+];
+
+async function callClaude(system: string, user: string): Promise<string> {
+  const res = await fetch(ANTHROPIC_URL, {
+    method: "POST",
+    headers: {
+      "x-api-key": process.env.ANTHROPIC_API_KEY || "",
+      "anthropic-version": "2023-06-01",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5",
+      max_tokens: 400,
+      messages: [{ role: "user", content: `${system}\n\n${user}` }],
+    }),
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`Anthropic HTTP ${res.status}: ${body.slice(0, 200)}`);
+  }
+  const j = (await res.json()) as { content?: { type: string; text?: string }[] };
+  return (j.content || [])
+    .map((b) => b.text || "")
+    .join("")
+    .trim();
+}
+
+function extractJson(text: string): Record<string, unknown> | null {
+  const m = text.match(/\{[\s\S]*\}/);
+  if (!m) return null;
+  try {
+    return JSON.parse(m[0]) as Record<string, unknown>;
+  } catch {
+    return null;
+  }
+}
+
+async function enrichNews(c: Classified): Promise<{ topic: string; summary: string } | null> {
+  const system =
+    "Você é um curador editorial de um site sobre energia renovável na América Latina (ALAGER). Responda SOMENTE com JSON válido, sem comentários.";
+  const user = `Dado o título e o veículo de uma notícia, gere:
+1. "summary": resumo em português de 2-3 linhas (resumo próprio; não repita o título).
+2. "topic": exatamente um destes slugs — ${TOPIC_SLUGS.join(", ")}.
+
+Título: "${c.title}"
+Veículo: "${c.outlet}"
+
+Responda SOMENTE: {"topic":"<slug>","summary":"<resumo>"}`;
+  try {
+    const text = await callClaude(system, user);
+    const obj = extractJson(text);
+    if (!obj || !obj.summary || !TOPIC_SLUGS.includes(String(obj.topic)))
+      return null;
+    return { topic: String(obj.topic), summary: String(obj.summary).trim() };
+  } catch (e) {
+    console.warn(`   ⚠️ falha ao enriquecer "${c.title.slice(0, 40)}": ${e instanceof Error ? e.message : e}`);
+    return null;
+  }
+}
+
+async function enrichEvent(c: Classified): Promise<string | null> {
+  const system =
+    "Você é um curador editorial de um site sobre energia renovável (ALAGER). Responda SOMENTE com JSON válido.";
+  const user = `Dado o nome de um evento, gere "description": descrição em português de 1-2 linhas.\n\nEvento: "${c.title}"\n\nResponda SOMENTE: {"description":"<descrição>"}`;
+  try {
+    const text = await callClaude(system, user);
+    const obj = extractJson(text);
+    if (!obj || !obj.description) return null;
+    return String(obj.description).trim();
+  } catch (e) {
+    console.warn(`   ⚠️ falha ao enriquecer "${c.title.slice(0, 40)}": ${e instanceof Error ? e.message : e}`);
+    return null;
+  }
+}
+
 // ── Report ─────────────────────────────────────────────────────────────
 function buildReport(since: string, until: string, items: Classified[]): string {
   const lines: string[] = [];
@@ -467,10 +555,38 @@ async function main() {
   const events = classified.filter((c) => c.type === "event");
   const skipped = classified.filter((c) => c.type !== "news" && c.type !== "event");
 
+  const enrich = Boolean(process.env.ANTHROPIC_API_KEY);
+  if (enrich) {
+    console.log(
+      `\n✨ Enriquecendo ${news.length} notícias + ${events.length} eventos via Claude (${process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5"})…`
+    );
+  }
+
+  const newsDocs: NewsDoc[] = enrich
+    ? await mapLimit(news, 4, async (c) => {
+        const d = toNewsDoc(c);
+        const e = await enrichNews(c);
+        if (e) {
+          d.summary = e.summary;
+          d.topic = e.topic;
+        }
+        return d;
+      })
+    : news.map(toNewsDoc);
+
+  const eventDocs: EventDoc[] = enrich
+    ? await mapLimit(events, 4, async (c) => {
+        const d = toEventDoc(c);
+        const desc = await enrichEvent(c);
+        if (desc) d.description = desc;
+        return d;
+      })
+    : events.map(toEventDoc);
+
   const curated: Curated = {
     topics: existing.topics.length ? existing.topics : DEFAULT_TOPICS,
-    newsItems: [...existing.newsItems, ...news.map(toNewsDoc)],
-    events: [...existing.events, ...events.map(toEventDoc)],
+    newsItems: [...existing.newsItems, ...newsDocs],
+    events: [...existing.events, ...eventDocs],
   };
 
   writeFileSync(args.out, JSON.stringify(curated, null, 2) + "\n");
@@ -487,6 +603,9 @@ async function main() {
   console.log(`   pulados:   ${skipped.length} ${JSON.stringify(counts)}`);
   console.log(`\n   curated.json: ${args.out}`);
   console.log(`   report:      ${args.report}`);
+  if (!enrich) {
+    console.log("\n💡 Dica: defina ANTHROPIC_API_KEY no .env.local para gerar resumo/tema automaticamente.");
+  }
 }
 
 main()
