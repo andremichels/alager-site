@@ -1,10 +1,11 @@
-// Alager Site — Agenda client (lista de eventos)
+// Alager Site — Agenda client (cards em grade)
 "use client";
 
 import { useTranslations } from "next-intl";
 import { Kicker } from "@/components/atoms/Kicker";
 import { Display } from "@/components/atoms/Display";
 import { BodyText } from "@/components/atoms/BodyText";
+import { EventCard } from "@/components/molecules/EventCard";
 import type { EventItem } from "@/lib/sanity";
 
 interface AgendaClientProps {
@@ -35,7 +36,7 @@ export function AgendaClient({ locale, events }: AgendaClientProps) {
 
   return (
     <main>
-      <section style={{ paddingTop: 80, paddingBottom: 48 }}>
+      <section style={{ paddingTop: 80, paddingBottom: 56 }}>
         <div className="wrap">
           <Kicker>{t("kicker")}</Kicker>
           <Display variant="display-1" style={{ marginTop: 24, marginBottom: 32, maxWidth: 1000 }}>
@@ -47,56 +48,23 @@ export function AgendaClient({ locale, events }: AgendaClientProps) {
         </div>
       </section>
 
-      <section style={{ paddingBottom: 96 }}>
-        <div className="wrap" style={{ maxWidth: 900 }}>
+      <section style={{ background: "var(--color-cream-deep)", paddingTop: 64, paddingBottom: 96 }}>
+        <div className="wrap">
           {events.length === 0 ? (
             <p style={{ textAlign: "center", padding: 80, color: "var(--color-muted)" }}>
               {t("empty")}
             </p>
           ) : (
-            <div>
+            <div className="grid-3" style={{ gap: 32 }}>
               {events.map((ev) => (
-                <article key={ev._id} style={{ padding: "28px 0", borderTop: "1px solid var(--color-line)" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: 16,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <h3
-                      className="serif"
-                      style={{ fontSize: 22, lineHeight: 1.2, fontWeight: 400, letterSpacing: "-0.01em" }}
-                    >
-                      {L(ev.name)}
-                    </h3>
-                    {ev.url && (
-                      <a
-                        href={ev.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mono"
-                        style={{
-                          color: "var(--color-green)",
-                          textDecoration: "none",
-                          fontSize: 13,
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {t("register")} →
-                      </a>
-                    )}
-                  </div>
-                  <div className="mono" style={{ color: "var(--color-muted)", fontSize: 12, marginTop: 8, marginBottom: 8 }}>
-                    {[range(ev), ev.location].filter(Boolean).join(" · ")}
-                  </div>
-                  {L(ev.description) && (
-                    <p style={{ fontSize: 15, lineHeight: 1.55, color: "var(--color-ink-2)" }}>
-                      {L(ev.description)}
-                    </p>
-                  )}
-                </article>
+                <EventCard
+                  key={ev._id}
+                  name={L(ev.name)}
+                  description={L(ev.description) || undefined}
+                  meta={[range(ev), ev.location].filter(Boolean).join(" · ") || undefined}
+                  url={ev.url}
+                  registerLabel={t("register")}
+                />
               ))}
             </div>
           )}

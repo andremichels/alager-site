@@ -11,3 +11,5 @@ export { PillarCard } from "./PillarCard";
 export { BoardMemberCard } from "./BoardMemberCard";
 export { NewsletterForm } from "./NewsletterForm";
 export { SearchInput } from "./SearchInput";
+export { NewsItemCard } from "./NewsItemCard";
+export { EventCard } from "./EventCard";

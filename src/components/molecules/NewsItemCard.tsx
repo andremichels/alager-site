@@ -1,0 +1,80 @@
+// Molecule: NewsItemCard — boxed card for /noticias radar items (grid)
+import { MonoLabel } from "@/components/atoms/MonoLabel";
+import { Display } from "@/components/atoms/Display";
+import { BodyText } from "@/components/atoms/BodyText";
+
+interface NewsItemCardProps {
+  title: string;
+  summary?: string;
+  topicLabel?: string;
+  meta?: string;
+  url?: string;
+  readSourceLabel: string;
+}
+
+const cardStyle: React.CSSProperties = {
+  padding: 28,
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+  textDecoration: "none",
+  color: "inherit",
+};
+
+export function NewsItemCard({
+  title,
+  summary,
+  topicLabel,
+  meta,
+  url,
+  readSourceLabel,
+}: NewsItemCardProps) {
+  const inner = (
+    <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 12,
+          alignItems: "baseline",
+          flexWrap: "wrap",
+        }}
+      >
+        {topicLabel ? <MonoLabel color="var(--color-gold-deep)">{topicLabel}</MonoLabel> : <span />}
+        {meta ? <MonoLabel>{meta}</MonoLabel> : null}
+      </div>
+
+      <Display variant="h3" style={{ marginTop: 16 }}>
+        {title}
+      </Display>
+
+      {summary ? (
+        <BodyText variant="small" style={{ marginTop: 12, flex: 1 }}>
+          {summary}
+        </BodyText>
+      ) : (
+        <div style={{ flex: 1 }} />
+      )}
+
+      {url ? (
+        <span className="mono" style={{ marginTop: 20, color: "var(--color-green)" }}>
+          {readSourceLabel} →
+        </span>
+      ) : null}
+    </>
+  );
+
+  if (url) {
+    return (
+      <a href={url} target="_blank" rel="noopener noreferrer" className="card" style={cardStyle}>
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <article className="card" style={cardStyle}>
+      {inner}
+    </article>
+  );
+}

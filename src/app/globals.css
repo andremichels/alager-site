@@ -196,6 +196,16 @@ body {
   background: var(--color-line);
 }
 
+/* ── Boxed card (news / events) ── */
+.card {
+  background: var(--color-cream);
+  border: 1px solid var(--color-line);
+  transition: border-color 0.15s ease;
+}
+a.card:hover {
+  border-color: var(--color-line-strong);
+}
+
 /* ── Photo placeholder ── */
 .ph {
   background: var(--color-cream-deep);
