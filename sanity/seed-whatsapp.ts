@@ -51,6 +51,7 @@ async function main() {
     dateStart: e.dateStart,
     url: e.url,
     origin: e.origin || "external",
+    featured: !!e.featured,
   }));
 
   // topics primeiro (referências precisam existir), depois news/events

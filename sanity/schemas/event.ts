@@ -17,6 +17,7 @@ export const event = defineType({
     defineField({ name: "location", type: "string", title: "Local" }),
     defineField({ name: "url", type: "url", title: "Link de inscrição" }),
     defineField({ name: "description", type: "localeString", title: "Descrição" }),
+    defineField({ name: "featured", type: "boolean", title: "Destaque", initialValue: false }),
     defineField({ name: "image", type: "image", title: "Imagem" }),
     defineField({
       name: "origin",

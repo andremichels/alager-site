@@ -115,6 +115,7 @@ export interface EventItem {
   description?: Record<string, string>;
   imageUrl?: string;
   origin?: string;
+  featured?: boolean;
   topic?: { _id: string; title: Record<string, string>; slug?: { current: string } } | null;
 }
 
@@ -307,7 +308,7 @@ export async function getNewsItems(): Promise<NewsItem[]> {
 export async function getEvents(): Promise<EventItem[]> {
   const { data } = await sanityFetch({
     query: `*[_type == "event"] | order(dateStart asc) {
-      _id, name, dateStart, dateEnd, location, url, description, origin,
+      _id, name, dateStart, dateEnd, location, url, description, origin, featured,
       "imageUrl": image.asset->url,
       "topic": topic->{ _id, title, "slug": slug { current } }
     }`,

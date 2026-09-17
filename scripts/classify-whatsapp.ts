@@ -50,6 +50,7 @@ interface EventDoc {
   dateStart: string;
   url: string;
   origin: string;
+  featured?: boolean;
 }
 
 interface Curated {
@@ -380,7 +381,7 @@ function toNewsDoc(c: Classified): NewsDoc {
   return { title: c.title, summary: "", outlet: c.outlet, url: c.url, date: c.date, featured: false };
 }
 function toEventDoc(c: Classified): EventDoc {
-  return { name: c.title, description: "", dateStart: c.date, url: c.url, origin: "external" };
+  return { name: c.title, description: "", dateStart: c.date, url: c.url, origin: "external", featured: false };
 }
 
 // ── Enriquecimento por LLM (resumo + tema) ────────────────────────────
@@ -432,38 +433,45 @@ function extractJson(text: string): Record<string, unknown> | null {
   }
 }
 
-async function enrichNews(c: Classified): Promise<{ topic: string; summary: string } | null> {
+async function enrichNews(c: Classified): Promise<{ topic: string; summary: string; featured: boolean } | null> {
   const system =
     "Você é um curador editorial de um site sobre energia renovável na América Latina (ALAGER). Responda SOMENTE com JSON válido, sem comentários.";
   const user = `Dado o título e o veículo de uma notícia, gere:
 1. "summary": resumo em português de 2-3 linhas (resumo próprio; não repita o título).
 2. "topic": exatamente um destes slugs — ${TOPIC_SLUGS.join(", ")}.
+3. "featured": true SOMENTE se for uma notícia de grande destaque/impacto para o setor de energia renovável; senão false.
 
 Título: "${c.title}"
 Veículo: "${c.outlet}"
 
-Responda SOMENTE: {"topic":"<slug>","summary":"<resumo>"}`;
+Responda SOMENTE: {"topic":"<slug>","summary":"<resumo>","featured":true|false}`;
   try {
     const text = await callClaude(system, user);
     const obj = extractJson(text);
     if (!obj || !obj.summary || !TOPIC_SLUGS.includes(String(obj.topic)))
       return null;
-    return { topic: String(obj.topic), summary: String(obj.summary).trim() };
+    return { topic: String(obj.topic), summary: String(obj.summary).trim(), featured: obj.featured === true };
   } catch (e) {
     console.warn(`   ⚠️ falha ao enriquecer "${c.title.slice(0, 40)}": ${e instanceof Error ? e.message : e}`);
     return null;
   }
 }
 
-async function enrichEvent(c: Classified): Promise<string | null> {
+async function enrichEvent(c: Classified): Promise<{ description: string; featured: boolean } | null> {
   const system =
     "Você é um curador editorial de um site sobre energia renovável (ALAGER). Responda SOMENTE com JSON válido.";
-  const user = `Dado o nome de um evento, gere "description": descrição em português de 1-2 linhas.\n\nEvento: "${c.title}"\n\nResponda SOMENTE: {"description":"<descrição>"}`;
+  const user = `Dado o nome de um evento, gere:
+1. "description": descrição em português de 1-2 linhas.
+2. "featured": true SOMENTE se for um evento de destaque para o setor; senão false.
+
+Evento: "${c.title}"
+
+Responda SOMENTE: {"description":"<descrição>","featured":true|false}`;
   try {
     const text = await callClaude(system, user);
     const obj = extractJson(text);
     if (!obj || !obj.description) return null;
-    return String(obj.description).trim();
+    return { description: String(obj.description).trim(), featured: obj.featured === true };
   } catch (e) {
     console.warn(`   ⚠️ falha ao enriquecer "${c.title.slice(0, 40)}": ${e instanceof Error ? e.message : e}`);
     return null;
@@ -569,6 +577,7 @@ async function main() {
         if (e) {
           d.summary = e.summary;
           d.topic = e.topic;
+          d.featured = e.featured;
         }
         return d;
       })
@@ -577,8 +586,11 @@ async function main() {
   const eventDocs: EventDoc[] = enrich
     ? await mapLimit(events, 4, async (c) => {
         const d = toEventDoc(c);
-        const desc = await enrichEvent(c);
-        if (desc) d.description = desc;
+        const e = await enrichEvent(c);
+        if (e) {
+          d.description = e.description;
+          d.featured = e.featured;
+        }
         return d;
       })
     : events.map(toEventDoc);
