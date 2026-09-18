@@ -8,6 +8,7 @@ import { Logo } from "@/components/atoms/Logo";
 import { Button } from "@/components/atoms/Button";
 import { NavLink } from "@/components/molecules/NavLink";
 import { LangSwitcher } from "@/components/molecules/LangSwitcher";
+import { track } from "@/lib/analytics";
 
 interface HeaderProps {
   locale: string;
@@ -100,7 +101,11 @@ export function Header({ locale }: HeaderProps) {
 
           {/* Desktop CTA */}
           <div className="topbar-text">
-            <Button variant="primary" href={`/${locale}/associe-se`}>
+            <Button
+              variant="primary"
+              href={`/${locale}/associe-se`}
+              onClick={() => track("join_cta_clicked", { placement: "header_desktop" })}
+            >
               {t("cta")}
             </Button>
           </div>
@@ -168,7 +173,11 @@ export function Header({ locale }: HeaderProps) {
               </a>
             ))}
             <div style={{ marginTop: 24 }}>
-              <Button variant="primary" href={`/${locale}/associe-se`}>
+              <Button
+                variant="primary"
+                href={`/${locale}/associe-se`}
+                onClick={() => track("join_cta_clicked", { placement: "header_mobile" })}
+              >
                 {t("cta")}
               </Button>
             </div>

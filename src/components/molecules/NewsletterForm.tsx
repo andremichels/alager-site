@@ -5,6 +5,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/atoms/Button";
+import { track } from "@/lib/analytics";
 
 interface NewsletterFormProps {
   placeholder: string;
@@ -30,7 +31,9 @@ export function NewsletterForm({ placeholder, ctaLabel }: NewsletterFormProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      setStatus(res.ok ? "success" : "error");
+      const ok = res.ok;
+      setStatus(ok ? "success" : "error");
+      if (ok) track("newsletter_subscribed");
     } catch {
       setStatus("error");
     }

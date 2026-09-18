@@ -2,6 +2,7 @@
 import { MonoLabel } from "@/components/atoms/MonoLabel";
 import { Display } from "@/components/atoms/Display";
 import { BodyText } from "@/components/atoms/BodyText";
+import { track } from "@/lib/analytics";
 
 interface EventCardProps {
   name: string;
@@ -73,7 +74,14 @@ export function EventCard({
 
   if (url) {
     return (
-      <a href={url} target="_blank" rel="noopener noreferrer" className="card" style={cardStyle}>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="card"
+        style={cardStyle}
+        onClick={() => track("outbound_click", { type: "event", url })}
+      >
         {inner}
       </a>
     );

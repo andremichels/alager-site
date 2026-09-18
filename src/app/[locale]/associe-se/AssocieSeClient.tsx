@@ -12,6 +12,7 @@ import { Input } from "@/components/atoms/Input";
 import { TierCard } from "@/components/molecules/TierCard";
 import type { Country } from "@/data/countries";
 import type { MembershipTier } from "@/lib/sanity";
+import { track } from "@/lib/analytics";
 
 interface Tier {
   name: string;
@@ -67,11 +68,13 @@ export default function AssocieSeClient({ countries, tiers }: AssocieSeClientPro
     e.preventDefault();
     if (!validate()) return;
     setSubmitted(true);
+    track("join_form_submitted", { tier: form.tier });
     // TODO: POST to n8n webhook
   };
 
   const handleTierSelect = (tierName: string) => {
     setForm((f) => ({ ...f, tier: tierName }));
+    track("join_tier_selected", { tier: tierName });
     document.getElementById("join-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
