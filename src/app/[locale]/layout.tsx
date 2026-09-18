@@ -8,6 +8,7 @@ import { SanityLive } from "@/lib/live";
 import { Header } from "@/components/organisms/Header";
 import { Footer } from "@/components/organisms/Footer";
 import { JsonLd } from "@/components/atoms/JsonLd";
+import { PostHogProvider } from "@/components/PostHogProvider";
 import { SITE_URL, SITE_NAME, siteTitle, defaultDescription } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -70,13 +71,15 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <JsonLd data={organizationSchema} />
-      <JsonLd data={websiteSchema} />
-      <Header locale={locale} />
-      {children}
-      <Footer locale={locale} />
-      <SanityLive />
-      {isEnabled && <VisualEditing />}
+      <PostHogProvider>
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={websiteSchema} />
+        <Header locale={locale} />
+        {children}
+        <Footer locale={locale} />
+        <SanityLive />
+        {isEnabled && <VisualEditing />}
+      </PostHogProvider>
     </NextIntlClientProvider>
   );
 }
